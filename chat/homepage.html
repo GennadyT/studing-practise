@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
 <head>
     <title>MyChat</title>
     <meta charset="utf-8">
@@ -11,36 +10,26 @@
         <div class="headLogo">
             <img src="images/logo.png" alt="MyChat">
         </div>
-        <div class="indicationCircle"></div>
+        <div class="indicationCircle" title="server indication"></div>
     </div>
     <form name="sign" class="sign">
-        <input name="signName"id="signName" type="text" maxlength="15">
+        <input name="signName" id="signName" type="text" maxlength="50">
         <input name="signButton" id="signButton" type="submit" value="Sign in">
     </form>
     <div class="chatBox">
-        <div class="ItemSend">
-            <textarea name="senderName" class="senderName" readonly>(08:00) Admin:</textarea>
-            <textarea name="chatItemSend" id="chatItemSend" readonly>Hello.</textarea>
-            <div class="tools">
-                <button name="delete" id="delete">
-                    <img src="images/delete.png" alt="del">
-                </button>
-                <button name="edit" id="edit">
-                    <img src="images/edit.png" alt="edit">
-                </button>
-            </div>
+        <textarea name="senderName" class="senderName" readonly>(08:00) Admin:</textarea>
+        <div class="tools">
+            <button name="delete" id="delete">delete</button>
+            <button name="edit" id="edit">edit</button>
         </div>
-        <div class="ItemSend">
-            <textarea name="senderName" class="senderName" readonly>(09:00) User:</textarea>
-            <textarea name="chatItemGet" id="chatItemGet" readonly>Test is successful.</textarea>
-        </div>
+        <textarea name="chatItemSend" class="chatItemSend" readonly>Hello.</textarea>
+        <textarea name="senderName" class="senderName" readonly>(09:00) User:</textarea>
+        <textarea name="chatItemGet" class="chatItemSend" readonly>Test is successful.</textarea>
     </div>
-    <div class="chatAdd">
-        <form name="chatMessage">
-            <textarea name="textMsg" id="textMsg" autofocus></textarea>
-            <input name="sendMsg" id="sendMsg" type="submit" value="Send"/>
-        </form>
-    </div>
+    <form name="chatMessage" id="chatMessage">
+        <textarea name="textMsg" id="textMsg"></textarea>
+        <input name="sendMsg" id="sendMsg" type="submit" value="Send"/>
+    </form>
 </div>
 </body>
 </html>

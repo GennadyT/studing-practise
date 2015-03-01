@@ -1,31 +1,30 @@
 .page {
-	margin: 0;
-	padding: 0;
+    margin: 0 auto;
+    padding: 0;
     background: url("images/background.jpg") #91E4FB;
-	text-align: center;
+    text-align: center;
 }
 .wrapper {
     margin: auto;
-   /* border: solid #000000;*/
     max-width: 60%;
-	min-width: 350px;
+    min-width: 350px;
 }
 .pageHead {
-	margin: 27px auto 0;
+    margin: 27px auto 0;
     min-width: 350px;
     text-align: center;
 }
 .headLogo {
-	font-size: 50px;
+    font-size: 50px;
     display: inline-block;
     vertical-align: middle;
 }
 .indicationCircle {
     display: inline-block;
     width: 20px;
-	height: 20px;
-	background: #92D36E;
-	border-radius: 10px;
+    height: 20px;
+    background: #92D36E;
+    border-radius: 10px;
     vertical-align: middle;
 }
 .sign {
@@ -34,6 +33,7 @@
 #signName {
     font-size: 15px;
     width: 10em;
+    outline: none;
     border: none;
 }
 #signButton {
@@ -42,15 +42,18 @@
     border: none;
 }
 .chatBox {
-	height: 400px;
-	background-color: #FFFFFF;
-	margin-top: 30px;
-	border: none;
-	overflow: hidden;
+    height: 400px;
+    background-color: #FFFFFF;
+    margin-top: 30px;
+    border: none;
+    overflow: auto;
+    overflow-x: hidden;
 }
 .senderName {
-    max-width: 10em;
-    height: 1em;
+    margin: 0;
+    padding: 0;
+    max-width: 50em;
+    height: 18px;
     font-size: 15px;
     resize: none;
     border: none;
@@ -58,8 +61,10 @@
     outline: none;
     float: left;
 }
-#chatItemSend {
-    min-width: 75%;
+.chatItemSend {
+    margin: 0;
+    padding: 0;
+    width: 100%;
     border: none;
     font-size: 15px;
     resize: none;
@@ -68,43 +73,39 @@
     float: left;
 }
 #edit {
+    font-size: 15px;
     float: right;
-    background: #FFFFFF;
+    background: #E6E6E6;
+    outline: none;
     border: none;
 }
 #delete {
-    float:right;
-    background: #FFFFFF;
-    border: none;
-}
-#chatItemGet {
-    min-width: 75%;
-    border: none;
     font-size: 15px;
-    resize: none;
-    overflow: hidden;
+    float: right;
+    background: #E61610;
+    color: #FFFFFF;
     outline: none;
-    float: left;
+    border: none;
 }
-.chatAdd{
+#chatMessage{
     margin-top: 5%;
     height: 60px;
-    /*border: solid #000000;*/
 }
 #textMsg {
+    padding: 0;
     width: 81%;
-    height: 57px;
+    height: 60px;
     font-size: 15px;
     resize: none;
     border: none;
-    overflow: hidden;
+    overflow: auto;
     outline: none;
     float: left;
 }
 #sendMsg {
     height: 60px;
     border: none;
-	width: 17%;
+    width: 17%;
     font-size: 15px;
     background-color: #E6E6E6;
     float: right;

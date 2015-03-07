@@ -1,35 +1,51 @@
 <!DOCTYPE html>
+<html>
 <head>
     <title>MyChat</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script src = js/scripts.js></script>
 </head>
-<body class="page">
+<body class="page" onload="run();">
+<div class="page-head">
+    <div class="head-logo">
+        <img src="images/logo.png" alt="MyChat">
+    </div>
+    <div class="indication-circle" title="server indication"></div>
+</div>
 <div class="wrapper">
-    <div class="pageHead">
-        <div class="headLogo">
-            <img src="images/logo.png" alt="MyChat">
-        </div>
-        <div class="indicationCircle" title="server indication"></div>
+    <div class="sign">
+        <input id="sign-name" type="text" maxlength="25">
+        <div id="user-name"></div>
+        <button id="sign-in" class="sign-button">Sign in</button>
+        <button id="sign-edit" class="sign-button">Edit</button>
+        <button id="sign-confirm" class="sign-button">Confirm</button>
+        <button id="sign-out" class="sign-button">Sign out</button>
     </div>
-    <form name="sign" class="sign">
-        <input name="signName" id="signName" type="text" maxlength="50">
-        <input name="signButton" id="signButton" type="submit" value="Sign in">
-    </form>
-    <div class="chatBox">
-        <textarea name="senderName" class="senderName" readonly>(08:00) Admin:</textarea>
-        <div class="tools">
-            <button name="delete" id="delete">delete</button>
-            <button name="edit" id="edit">edit</button>
+    <div class="chat-box">
+        <div class="add-message">
+            <div class="sender-name"></div>
+            <div class="tools">
+                <button id="delete">delete</button>
+                <button id="edit">edit</button>
+            </div>
+            <textarea class="message-edit"></textarea>
+            <div class="message-item"></div>
         </div>
-        <textarea name="chatItemSend" class="chatItemSend" readonly>Hello.</textarea>
-        <textarea name="senderName" class="senderName" readonly>(09:00) User:</textarea>
-        <textarea name="chatItemGet" class="chatItemSend" readonly>Test is successful.</textarea>
+        <div class="get-message">
+            <div class="sender-name">(08:00) Admin:</div>
+            <textarea class="message-edit">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in
+                placerat tellus. Aliquam sit amet dui ex. In ac dignissim orci, sit amet euismod nisl. Nulla facilisi.
+                Aliquam porttitor lorem dolor, ut ornare ex cursus vitae. Suspendisse potenti.</textarea>
+            <div class="message-item">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in placerat
+                tellus. Aliquam sit amet dui ex. In ac dignissim orci, sit amet euismod nisl. Nulla facilisi. Aliquam
+                porttitor lorem dolor, ut ornare ex cursus vitae. Suspendisse potenti.</div>
+        </div>
     </div>
-    <form name="chatMessage" id="chatMessage">
-        <textarea name="textMsg" id="textMsg"></textarea>
-        <input name="sendMsg" id="sendMsg" type="submit" value="Send"/>
-    </form>
+    <div class="send-message">
+        <textarea id="message-text" disabled>You should to sign in!</textarea>
+        <button id="send-button" class="send-button" disabled>Send</button>
+    </div>
 </div>
 </body>
 </html>

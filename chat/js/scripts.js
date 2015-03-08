@@ -8,11 +8,16 @@ function run() {
 }
 
 function delegateEvent(evtObj) {
-    if(evtObj.type === 'click' && evtObj.target.classList.contains('sign-button')) {
-        onSignClick(evtObj);
-    }
-    if(evtObj.type === 'click' && evtObj.target.classList.contains('send-button')) {
-        onMessageSend(evtObj);
+    if (evtObj.type === 'click') {
+        if (evtObj.target.classList.contains('sign-button')) {
+            onSignClick(evtObj);
+        }
+        if (evtObj.target.classList.contains('send-button')) {
+            onMessageSend(evtObj);
+        }
+        if (evtObj.target.classList.contains('tools-button')) {
+            onMessageEdit(evtObj);
+        }
     }
 }
 
@@ -20,25 +25,30 @@ function onSignClick(evtObj) {
     var signName = document.getElementById('sign-name');
     var userName = document.getElementById('user-name');
     var signButton = evtObj.target;
-    if(signButton.id == 'sign-in') {
+    if (signButton.id == 'sign-in') {
         onSignInClick(signName, userName);
+        return true;
     }
-    if(signButton.id == 'sign-edit') {
+    if (signButton.id == 'sign-edit') {
         onSignEditClick(signName, userName);
+        return true;
     }
-    if(signButton.id == 'sign-confirm') {
+    if (signButton.id == 'sign-confirm') {
         onSignConfirmClick(signName, userName);
+        return true;
     }
-    if(signButton.id == 'sign-out') {
+    if (signButton.id == 'sign-out') {
         onSignOutClick(signName, userName);
+        return true;
     }
+    return false;
 }
 
 function sendActivator(activate) {
     var sendMessage = document.getElementsByClassName('send-message')[0];
     var messageText = sendMessage.firstElementChild;
     messageText.disabled = !activate;
-    if(activate == true) {
+    if (activate == true) {
         messageText.value = '';
     }
     else {
@@ -106,6 +116,7 @@ function onMessageSend() {
         var messageItem = createMessage(messageText.value);
         var chatBox = document.getElementsByClassName('chat-box')[0];
         chatBox.appendChild(messageItem);
+        chatBox.scrollTop = chatBox.scrollHeight;
         messageText.value = '';
     }
     else {
@@ -113,13 +124,54 @@ function onMessageSend() {
     }
 }
 
-function createMessage(text) {
-    var messageItem = document.createElement('div');
-    var senderName = document.getElementById('user-name');
-    messageItem.setAttribute('class', 'add-message');
+function timeFormat() {
     var date = new Date();
-    var senderHeader = '(' + date.getHours() + ':' + date.getMinutes() + ') ' + senderName.innerHTML;
-    messageItem.firstElementChild.innerHTML = senderHeader;
-    messageItem.lastElementChild.innerHTML = text;
+    return date.toLocaleString();
+}
+
+function createMessage(text) {
+    var senderName = document.getElementById('user-name');
+    var messageTemplate = document.getElementsByClassName('message')[0];
+    var messageItem = messageTemplate.cloneNode(true);
+    var formattingDate = '(' + timeFormat() + ') ';
+    var messageElements = messageItem.children;
+    messageElements[0].innerHTML = formattingDate + senderName.innerHTML;
+    messageElements[1].style.display = 'inline';
+    messageElements[2].value = text;
+    messageElements[3].innerHTML = text;
     return messageItem;
+}
+
+function onMessageEdit(evtObj) {
+    var message = evtObj.target.parentNode.parentElement;
+    switch (evtObj.target.id) {
+        case 'tools-confirm':
+            onMessageConfirmClick(message);
+            break;
+        case 'message-edit':
+            onMessageEditClick(message);
+            break;
+        case 'message-delete':
+            message.remove();
+            break;
+    }
+}
+
+function onMessageEditClick(message) {
+    var messageElements = message.children;
+    var tools = messageElements[1].children;
+    messageElements[3].style.display = 'none';
+    tools[1].style.display = 'none';
+    messageElements[2].style.display = 'inline';
+    tools[2].style.display = 'inline';
+}
+
+function onMessageConfirmClick(message) {
+    var messageElements = message.children;
+    var tools = messageElements[1].children;
+    messageElements[2].style.display = 'none';
+    tools[2].style.display = 'none';
+    messageElements[3].innerHTML = messageElements[2].value;
+    messageElements[3].style.display = '';
+    tools[1].style.display = 'inline';
 }

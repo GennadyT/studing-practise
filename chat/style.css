@@ -66,28 +66,34 @@
     overflow: hidden;
     float: left;
 }
-#edit {
+.tools {
+    display: none;
+}
+.tools-button {
     font-size: 15px;
     float: right;
-    background: #E6E6E6;
     outline: none;
     border: none;
 }
-#delete {
-    font-size: 15px;
-    float: right;
+#tools-confirm {
+    display: none;
+    background: #72BB53;
+    color: #FFFFFF;
+}
+#message-edit {
+    background: #E6E6E6;
+}
+#message-delete {
     background: #E61610;
     color: #FFFFFF;
-    outline: none;
-    border: none;
 }
-.message-edit {
+.message-edit-text {
     display: none;
     padding: 0;
     width: 100%;
     height: 60px;
     background: #F7F6F6;
-    font-size: 18px;
+    font-size: 15px;
     resize: none;
     border: none;
     overflow: auto;
@@ -97,6 +103,7 @@
     overflow: hidden;
     text-align: justify;
     font-size: 18px;
+    white-space: pre-wrap;
 }
 .send-message {
     margin-top: 5%;
@@ -120,4 +127,8 @@
     font-size: 15px;
     background-color: #E6E6E6;
     float: right;
+}
+.footer {
+    font-size: 18px;
+    margin: 10px auto;
 }

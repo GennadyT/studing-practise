@@ -97,7 +97,15 @@
     clear: both;
     overflow: hidden;
     text-align: justify;
+    white-space: pre-wrap;
+    font-style: normal;
+    font-size: 18px;
+}
+.modify {
     font-size: 15px;
+    font-style: italic;
+    text-align: left;
+    clear: both;
 }
 .send-message {
     margin-top: 5%;

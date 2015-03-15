@@ -7,11 +7,13 @@ var getId = function() {
     return Math.floor(currentDate * random).toString();
 };
 
-var theMessage = function(date, sender, message) {
+var theMessage = function(date, sender, message, deleted, modify) {
     return {
         date: date,
         senderName: sender,
         messageText: message,
+        deleted: deleted,
+        modifyText: modify,
         id: getId()
     };
 };
@@ -30,7 +32,7 @@ function run() {
 }
 
 function setCurrentUser(user) {
-    if (user == null) {
+    if (user === null) {
         return;
     }
     var userName = document.getElementById('sign-name');
@@ -39,7 +41,7 @@ function setCurrentUser(user) {
 }
 
 function createAllMessages(messages) {
-    if (messages == null) {
+    if (messages === null) {
         return;
     }
     for (var i = 0; i < messages.length; i++) {
@@ -57,7 +59,7 @@ function updateAllMessages() {
 function delegateEvent(evtObj) {
     if (evtObj.type === 'click') {
         if (evtObj.target.classList.contains('sign-button')) {
-            onSignClick(evtObj);
+            onSignClick(evtObj.target);
         }
         if (evtObj.target.classList.contains('send-button')) {
             onMessageSend();
@@ -68,21 +70,20 @@ function delegateEvent(evtObj) {
     }
 }
 
-function onSignClick(evtObj) {
-    var signButton = evtObj.target;
-    if (signButton.id == 'sign-in') {
+function onSignClick(button) {
+    if (button.id == 'sign-in') {
         onSignInClick();
         return true;
     }
-    if (signButton.id == 'sign-edit') {
+    if (button.id == 'sign-edit') {
         onSignEditClick();
         return true;
     }
-    if (signButton.id == 'sign-confirm') {
+    if (button.id == 'sign-confirm') {
         onSignInClick();
         return true;
     }
-    if (signButton.id == 'sign-out') {
+    if (button.id == 'sign-out') {
         onSignOutClick();
         return true;
     }
@@ -164,8 +165,8 @@ function onSignOutClick() {
 function onMessageSend() {
     var messageText = document.getElementById('message-text');
     if (inputChecker(messageText.value) == true) {
-        var item = theMessage('(' + timeFormat() + ')', currentUser, messageText.value);
-        var messageItem = addMessage(item);
+        var item = theMessage('(' + timeFormat() + ')', currentUser, messageText.value, false);
+        addMessage(item);
         storeMessages(messageList);
         messageText.value = '';
     }
@@ -198,22 +199,63 @@ function createMessage(message) {
     return item;
 }
 
+function addTool(divMessage, tools) {
+    if (tools === undefined) {
+        var item = document.createElement('div');
+        var htmlAsText = '<button id="message-delete" class="message tools-button">delete</button>'
+            + '<button id="message-edit" class="message tools-button">edit</button>';
+        item.innerHTML = htmlAsText;
+        item.setAttribute('class', 'message tools');
+        divMessage.insertBefore(item, divMessage.lastChild);
+    }
+}
+
+function removeTool(divMessage, tools) {
+    if (tools != undefined) {
+        divMessage.removeChild(tools);
+    }
+}
+
+function setDelete(divMessage, messageText, tools) {
+    var item = divMessage.getElementsByClassName('modify')[0];
+    if (item === undefined) {
+        item = document.createElement('p');
+        item.setAttribute('class', 'modify');
+        divMessage.appendChild(item);
+    }
+    item.innerHTML = 'deleted';
+    if(messageText != undefined) {
+        divMessage.removeChild(messageText);
+    }
+    removeTool(divMessage, tools);
+}
+
+function setModify(divMessage, message) {
+    var item = divMessage.getElementsByClassName('modify')[0];
+    if (item === undefined) {
+        item = document.createElement('p');
+        item.setAttribute('class', 'modify');
+        item.setAttribute('id', 'modify-edit');
+        divMessage.appendChild(item);
+    }
+    item.innerHTML = message.modifyText;
+}
+
 function updateMessage(divMessage, message) {
     var tools = divMessage.getElementsByClassName('tools')[0];
+    var messageText = divMessage.getElementsByClassName('message-item')[0];
+    if (message.deleted == true) {
+        setDelete(divMessage, messageText, tools);
+        return;
+    }
     if (currentUser != undefined && message.senderName.toLowerCase() == currentUser.toLowerCase()) {
-        if (tools === undefined) {
-            var item = document.createElement('div');
-            var htmlAsText = '<button id="message-delete" class="message tools-button">delete</button>'
-                + '<button id="message-edit" class="message tools-button">edit</button>';
-            item.innerHTML = htmlAsText;
-            item.setAttribute('class', 'message tools');
-            divMessage.insertBefore(item, divMessage.lastChild);
-        }
+        addTool(divMessage, tools);
     }
     else {
-        if (tools != undefined) {
-            divMessage.removeChild(tools);
-        }
+        removeTool(divMessage, tools);
+    }
+    if(message.modifyText != null) {
+        setModify(divMessage, message);
     }
 }
 
@@ -232,23 +274,31 @@ function onMessageEdit(tool) {
 }
 
 function makeToEdit(divMessage, type) {
-    var message = divMessage.lastElementChild;
+    var message;
     var item;
     var text;
     if (type == 'edit') {
+        message = divMessage.getElementsByClassName('message-item')[0];
         item = document.createElement('textarea');
         item.setAttribute('class', 'message message-edit-text');
         text = message.innerHTML;
         item.value = text;
     }
     if (type == 'read') {
+        message = divMessage.getElementsByClassName('message-edit-text')[0];
         item = document.createElement('xmp');
         item.setAttribute('class', 'message message-item');
         text = message.value;
-        item.innerHTML = text
+        item.innerHTML = text;
     }
     divMessage.removeChild(message);
-    divMessage.appendChild(item);
+    var modify = divMessage.getElementsByClassName('modify')[0];
+    if(modify === undefined) {
+        divMessage.appendChild(item);
+    }
+    else {
+        divMessage.insertBefore(item, modify);
+    }
     return text;
 }
 
@@ -284,6 +334,8 @@ function onMessageConfirmClick(tools) {
             continue;
         }
         messageList[i].messageText = text;
+        messageList[i].modifyText = 'Message was modified on ' + timeFormat();
+        updateMessage(divMessage, messageList[i]);
         storeMessages(messageList);
         return;
     }
@@ -291,13 +343,13 @@ function onMessageConfirmClick(tools) {
 
 function onMessageDelete(divMessage) {
     var id = divMessage.attributes['id'].value;
-    var chatBox = divMessage.parentElement;
-    chatBox.removeChild(divMessage);
     for (var i = 0; i < messageList.length; i++) {
         if (messageList[i].id != id) {
             continue;
         }
-        messageList.splice(i, 1);
+        messageList[i].messageText = 'deleted';
+        messageList[i].deleted = true;
+        updateMessage(divMessage, messageList[i]);
         storeMessages(messageList);
         return;
     }

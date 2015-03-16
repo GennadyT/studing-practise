@@ -7,24 +7,24 @@ var getId = function() {
     return Math.floor(currentDate * random).toString();
 };
 
-var theMessage = function(date, sender, message, deleted, modify) {
+var theMessage = function(date, sender, message, modify) {
     return {
         date: date,
         senderName: sender,
         messageText: message,
-        deleted: deleted,
         modifyText: modify,
         id: getId()
     };
 };
 
-var messageList = [];
-
 var currentUser;
+
+var messageList = [];
 
 function run() {
     var appContainer = document.getElementsByClassName('wrapper')[0];
     appContainer.addEventListener('click', delegateEvent);
+    appContainer.addEventListener('keydown', delegateEvent);
     var currentUser = restoreCurrentUser();
     setCurrentUser(currentUser);
     var messages = restoreMessages();
@@ -32,20 +32,18 @@ function run() {
 }
 
 function setCurrentUser(user) {
-    if (user === null) {
-        return;
+    if (user != null) {
+        var userName = document.getElementById('sign-name');
+        userName.value = user;
+        onSignInClick();
     }
-    var userName = document.getElementById('sign-name');
-    userName.value = user;
-    onSignInClick();
 }
 
 function createAllMessages(messages) {
-    if (messages === null) {
-        return;
-    }
-    for (var i = 0; i < messages.length; i++) {
-        addMessage(messages[i]);
+    if (messages != null) {
+        for (var i = 0; i < messages.length; i++) {
+            addMessage(messages[i]);
+        }
     }
 }
 
@@ -64,30 +62,30 @@ function delegateEvent(evtObj) {
         if (evtObj.target.classList.contains('send-button')) {
             onMessageSend();
         }
-        if (evtObj.target.classList.contains('message')) {
+        if (evtObj.target.classList.contains('tools-button')) {
+            onMessageEdit(evtObj.target);
+        }
+    }
+    if(evtObj.type === 'keydown' && evtObj.ctrlKey && evtObj.keyCode == 13) {
+        if (evtObj.target.classList.contains('send-message')) {
+            onMessageSend();
+        }
+        if (evtObj.target.classList.contains('message-edit-text')) {
             onMessageEdit(evtObj.target);
         }
     }
 }
 
 function onSignClick(button) {
-    if (button.id == 'sign-in') {
+    if (button.id == 'sign-in' || button.id == 'sign-confirm') {
         onSignInClick();
-        return true;
     }
     if (button.id == 'sign-edit') {
         onSignEditClick();
-        return true;
-    }
-    if (button.id == 'sign-confirm') {
-        onSignInClick();
-        return true;
     }
     if (button.id == 'sign-out') {
         onSignOutClick();
-        return true;
     }
-    return false;
 }
 
 function sendActivator(activate) {
@@ -149,6 +147,7 @@ function onSignEditClick() {
     createSignStructure('modify');
     var name = document.getElementById('sign-name');
     name.value = currentUser;
+    name.focus();
     sendActivator(false);
 }
 
@@ -165,7 +164,7 @@ function onSignOutClick() {
 function onMessageSend() {
     var messageText = document.getElementById('message-text');
     if (inputChecker(messageText.value) == true) {
-        var item = theMessage('(' + timeFormat() + ')', currentUser, messageText.value, false);
+        var item = theMessage('(' + timeFormat() + ')', currentUser, messageText.value.trim());
         addMessage(item);
         storeMessages(messageList);
         messageText.value = '';
@@ -180,96 +179,94 @@ function timeFormat() {
     return date.toLocaleString();
 }
 
+function scrollDown() {
+    var chatBox = document.getElementsByClassName('chat-box')[0];
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
 function addMessage(message) {
     var item = createMessage(message);
     var chatBox = document.getElementsByClassName('chat-box')[0];
     messageList.push(message);
     chatBox.appendChild(item);
-    chatBox.scrollTop = chatBox.scrollHeight;
+    scrollDown();
 }
 
 function createMessage(message) {
     var item = document.createElement('div');
-    var htmlAsText = '<div class="message sender-name">' + message.date + ' ' + message.senderName + '</div>'
-        + '<xmp class="message message-item">' + message.messageText + '</xmp>';
-    item.innerHTML = htmlAsText;
+    item.innerHTML = '<div class="message sender-name">' + message.date + ' ' + message.senderName + '</div>'
+    + '<xmp class="message message-item">' + message.messageText + '</xmp>';
     item.setAttribute('class', 'message');
     item.setAttribute('id', message.id);
     updateMessage(item, message);
     return item;
 }
 
-function addTool(divMessage, tools) {
-    if (tools === undefined) {
-        var item = document.createElement('div');
-        var htmlAsText = '<button id="message-delete" class="message tools-button">delete</button>'
-            + '<button id="message-edit" class="message tools-button">edit</button>';
-        item.innerHTML = htmlAsText;
-        item.setAttribute('class', 'message tools');
-        divMessage.insertBefore(item, divMessage.lastChild);
+function updateMessage(divMessage, message) {
+    var messageText = divMessage.getElementsByClassName('message-item')[0];
+    if (message.modifyText == 'deleted') {
+        setDelete(divMessage, message);
+        return;
+    }
+    if(message.modifyText != null) {
+        setModify(divMessage, message);
+    }
+    if (currentUser != undefined && message.senderName.toLowerCase() == currentUser.toLowerCase()) {
+        addTool(divMessage);
+    }
+    else {
+        removeTool(divMessage);
     }
 }
 
-function removeTool(divMessage, tools) {
+function setDelete(divMessage, message) {
+    divMessage.innerHTML = '<div class="message sender-name">' + message.date + ' '
+    + message.senderName + '</div>' + '<p class="modify">deleted</p>';
+}
+
+function setModify(divMessage, message) {
+    var modify = divMessage.getElementsByClassName('modify')[0];
+    if (modify === undefined) {
+        modify = document.createElement('p');
+        modify.setAttribute('class', 'modify');
+        modify.setAttribute('id', 'modify-edit');
+        divMessage.appendChild(modify);
+    }
+    modify.innerHTML = message.modifyText;
+}
+
+function addTool(divMessage) {
+    var tools = divMessage.getElementsByClassName('tools')[0];
+    if (tools === undefined) {
+        var positionAfter = divMessage.getElementsByClassName('message-item')[0];
+        var item = document.createElement('div');
+        item.innerHTML = '<button id="message-delete" class="message tools-button">delete</button>'
+        + '<button id="message-edit" class="message tools-button">edit</button>';
+        item.setAttribute('class', 'message tools');
+        divMessage.insertBefore(item, positionAfter);
+    }
+}
+
+function removeTool(divMessage) {
+    var tools = divMessage.getElementsByClassName('tools')[0];
     if (tools != undefined) {
         divMessage.removeChild(tools);
     }
 }
 
-function setDelete(divMessage, messageText, tools) {
-    var item = divMessage.getElementsByClassName('modify')[0];
-    if (item === undefined) {
-        item = document.createElement('p');
-        item.setAttribute('class', 'modify');
-        divMessage.appendChild(item);
+function onMessageEdit(item) {
+    if (item.id == 'tools-confirm') {
+        onMessageConfirmClick(item.parentElement);
     }
-    item.innerHTML = 'deleted';
-    if(messageText != undefined) {
-        divMessage.removeChild(messageText);
+    if(item.classList.contains('message-edit-text')) {
+        var editTool = item.parentElement.getElementsByClassName('tools')[0];
+        onMessageConfirmClick(editTool);
     }
-    removeTool(divMessage, tools);
-}
-
-function setModify(divMessage, message) {
-    var item = divMessage.getElementsByClassName('modify')[0];
-    if (item === undefined) {
-        item = document.createElement('p');
-        item.setAttribute('class', 'modify');
-        item.setAttribute('id', 'modify-edit');
-        divMessage.appendChild(item);
+    if (item.id == 'message-edit') {
+        onMessageEditClick(item.parentElement);
     }
-    item.innerHTML = message.modifyText;
-}
-
-function updateMessage(divMessage, message) {
-    var tools = divMessage.getElementsByClassName('tools')[0];
-    var messageText = divMessage.getElementsByClassName('message-item')[0];
-    if (message.deleted == true) {
-        setDelete(divMessage, messageText, tools);
-        return;
-    }
-    if (currentUser != undefined && message.senderName.toLowerCase() == currentUser.toLowerCase()) {
-        addTool(divMessage, tools);
-    }
-    else {
-        removeTool(divMessage, tools);
-    }
-    if(message.modifyText != null) {
-        setModify(divMessage, message);
-    }
-}
-
-function onMessageEdit(tool) {
-    switch (tool.id) {
-        case 'tools-confirm':
-            onMessageConfirmClick(tool.parentElement);
-            break;
-        case 'message-edit':
-            onMessageEditClick(tool.parentElement);
-            break;
-        case 'message-delete':
-            onMessageDelete(tool.parentElement.parentElement);
-            break;
+    if (item.id == 'message-delete') {
+        onMessageDelete(item.parentElement.parentElement);
     }
 }
 
@@ -281,24 +278,19 @@ function makeToEdit(divMessage, type) {
         message = divMessage.getElementsByClassName('message-item')[0];
         item = document.createElement('textarea');
         item.setAttribute('class', 'message message-edit-text');
-        text = message.innerHTML;
+        text = message.innerHTML.trim();
         item.value = text;
     }
     if (type == 'read') {
         message = divMessage.getElementsByClassName('message-edit-text')[0];
         item = document.createElement('xmp');
         item.setAttribute('class', 'message message-item');
-        text = message.value;
+        text = message.value.trim();
         item.innerHTML = text;
+        item.focus();
     }
-    divMessage.removeChild(message);
-    var modify = divMessage.getElementsByClassName('modify')[0];
-    if(modify === undefined) {
-        divMessage.appendChild(item);
-    }
-    else {
-        divMessage.insertBefore(item, modify);
-    }
+    divMessage.replaceChild(item, message);
+    item.focus();
     return text;
 }
 
@@ -347,8 +339,8 @@ function onMessageDelete(divMessage) {
         if (messageList[i].id != id) {
             continue;
         }
-        messageList[i].messageText = 'deleted';
-        messageList[i].deleted = true;
+        messageList[i].messageText = '';
+        messageList[i].modifyText = 'deleted';
         updateMessage(divMessage, messageList[i]);
         storeMessages(messageList);
         return;

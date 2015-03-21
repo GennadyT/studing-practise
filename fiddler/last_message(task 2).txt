@@ -1,0 +1,26 @@
+GET http://localhost:999/chat?token=TN11EN HTTP/1.1
+User-Agent: Composer
+Host: localhost:999
+
+
+HTTP/1.1 200 OK
+Date: Sat, 21 Mar 2015 18:52:05 GMT
+Content-length: 254
+
+{"messages":["Today is sunday","It is studing practise.","I eant to see Hunger Games the last part.","OK, it was want of coures.","And of course=))","Now is 21:41 21.03.2015","Test=)","Not, now is 21:48","Good luck!!","It is the last."],"token":"TN91EN"}
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN83EN HTTP/1.1
+User-Agent: Composer
+Host: localhost:999
+
+
+HTTP/1.1 200 OK
+Date: Sat, 21 Mar 2015 18:52:19 GMT
+Content-length: 49
+
+{"messages":["It is the last."],"token":"TN19EN"}
+
+------------------------------------------------------------------
+

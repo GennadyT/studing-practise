@@ -1,0 +1,14 @@
+GET http://localhost:999/chat?token=TN11EN HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+
+HTTP/1.1 200 OK
+Date: Tue, 17 Mar 2015 15:44:03 GMT
+Content-length: 155
+
+{"messages":["Hello!","It is the test!","Of server client....","Today is tuesday!","The weather is good","-1","Bayern is the champion=)"],"token":"TN67EN"}

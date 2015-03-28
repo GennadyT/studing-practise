@@ -1,0 +1,45 @@
+GET http://localhost:999/chat?token=TN11EN HTTP/1.1
+User-Agent: Composer
+Host: localhost:999
+
+
+HTTP/1.1 200 OK
+Date: Sat, 28 Mar 2015 20:19:44 GMT
+Access-control-allow-origin: *
+Content-length: 151
+
+{"messages":[{"id":"4721095922", "sender":"user 759", "message":"Hello, Fiddler!", "date":"28.03.2015, 23:19:36", "deleted":"false"}],"token":"TN19EN"}
+
+------------------------------------------------------------------
+
+POST http://localhost:999/chat HTTP/1.1
+User-Agent: Composer
+Host: localhost:999
+Content-Length: 110
+
+{"id":"1", "sender":"Fiddler", "message":"Hello, user 759!", "date":"28.03.2015, 23:20:36", "deleted":"false"}
+HTTP/1.1 200 OK
+Date: Sat, 28 Mar 2015 20:20:29 GMT
+Transfer-encoding: chunked
+Access-control-allow-origin: *
+
+0
+
+
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN11EN HTTP/1.1
+User-Agent: Composer
+Host: localhost:999
+
+
+HTTP/1.1 200 OK
+Date: Sat, 28 Mar 2015 20:20:37 GMT
+Access-control-allow-origin: *
+Content-length: 262
+
+{"messages":[{"id":"4721095922", "sender":"user 759", "message":"Hello, Fiddler!", "date":"28.03.2015, 23:19:36", "deleted":"false"},{"id":"1", "sender":"Fiddler", "message":"Hello, user 759!", "date":"28.03.2015, 23:20:36", "deleted":"false"}],"token":"TN27EN"}
+
+------------------------------------------------------------------
+

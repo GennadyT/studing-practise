@@ -1,0 +1,127 @@
+POST http://localhost:999/chat HTTP/1.1
+User-Agent: Composer
+Host: localhost:999
+Content-Length: 85
+
+{"id":"1", "sender":"fiddler", "message":"What's up?", "date":"29.03.2015, 11:37:55"}
+HTTP/1.1 200 OK
+Date: Sun, 29 Mar 2015 08:37:51 GMT
+Transfer-encoding: chunked
+Access-control-allow-origin: *
+
+0
+
+
+
+------------------------------------------------------------------
+
+POST http://localhost:999/chat HTTP/1.1
+User-Agent: Composer
+Host: localhost:999
+Content-Length: 81
+
+{"id":"2", "sender":"fiddler", "message":"Me too", "date":"29.03.2015, 11:38:43"}
+HTTP/1.1 200 OK
+Date: Sun, 29 Mar 2015 08:38:54 GMT
+Transfer-encoding: chunked
+Access-control-allow-origin: *
+
+0
+
+
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN11EN HTTP/1.1
+User-Agent: Composer
+Host: localhost:999
+
+
+HTTP/1.1 200 OK
+Date: Sun, 29 Mar 2015 08:39:26 GMT
+Access-control-allow-origin: *
+Content-length: 468
+
+{"messages":[{"id":"9755546996", "sender":"user 991", "message":"Hi!", "date":"29.03.2015, 11:37:38", "deleted":"false"},{"id":"1", "sender":"fiddler", "message":"What's up?", "date":"29.03.2015, 11:37:55", "deleted":"false"},{"id":"8362735336", "sender":"user 991", "message":"I'm fine, and you?", "date":"29.03.2015, 11:38:28", "deleted":"false"},{"id":"2", "sender":"fiddler", "message":"Me too", "date":"29.03.2015, 11:38:43", "deleted":"false"}],"token":"TN43EN"}
+
+------------------------------------------------------------------
+
+PUT http://localhost:999/chat HTTP/1.1
+User-Agent: Composer
+Host: localhost:999
+Content-Length: 39
+
+{"id":"1", "message":"Hi! What's up ?"}
+HTTP/1.1 200 OK
+Date: Sun, 29 Mar 2015 08:41:49 GMT
+Transfer-encoding: chunked
+Access-control-allow-origin: *
+
+0
+
+
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN11EN HTTP/1.1
+User-Agent: Composer
+Host: localhost:999
+
+
+HTTP/1.1 200 OK
+Date: Sun, 29 Mar 2015 08:41:59 GMT
+Access-control-allow-origin: *
+Content-length: 473
+
+{"messages":[{"id":"9755546996", "sender":"user 991", "message":"Hi!", "date":"29.03.2015, 11:37:38", "deleted":"false"},{"id":"1", "sender":"fiddler", "message":"Hi! What's up ?", "date":"29.03.2015, 11:37:55", "deleted":"false"},{"id":"8362735336", "sender":"user 991", "message":"I'm fine, and you?", "date":"29.03.2015, 11:38:28", "deleted":"false"},{"id":"2", "sender":"fiddler", "message":"Me too", "date":"29.03.2015, 11:38:43", "deleted":"false"}],"token":"TN43EN"}
+
+------------------------------------------------------------------
+
+DELETE http://localhost:999/chat HTTP/1.1
+User-Agent: Composer
+Host: localhost:999
+Content-Length: 10
+
+{"id":"2"}
+HTTP/1.1 200 OK
+Date: Sun, 29 Mar 2015 08:42:40 GMT
+Transfer-encoding: chunked
+Access-control-allow-origin: *
+
+0
+
+
+
+------------------------------------------------------------------
+
+POST http://localhost:999/chat HTTP/1.1
+User-Agent: Composer
+Host: localhost:999
+Content-Length: 94
+
+{"id":"3", "sender":"fiddler", "message":"Fine too, cockatoo!", "date":"29.03.2015, 11:43:55"}
+HTTP/1.1 200 OK
+Date: Sun, 29 Mar 2015 08:44:04 GMT
+Transfer-encoding: chunked
+Access-control-allow-origin: *
+
+0
+
+
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN11EN HTTP/1.1
+User-Agent: Composer
+Host: localhost:999
+
+
+HTTP/1.1 200 OK
+Date: Sun, 29 Mar 2015 08:44:07 GMT
+Access-control-allow-origin: *
+Content-length: 587
+
+{"messages":[{"id":"9755546996", "sender":"user 991", "message":"Hi!", "date":"29.03.2015, 11:37:38", "deleted":"false"},{"id":"1", "sender":"fiddler", "message":"Hi! What's up ?", "date":"29.03.2015, 11:37:55", "deleted":"false"},{"id":"8362735336", "sender":"user 991", "message":"I'm fine, and you?", "date":"29.03.2015, 11:38:28", "deleted":"false"},{"id":"2", "sender":"fiddler", "message":"deleted", "date":"29.03.2015, 11:38:43", "deleted":"true"},{"id":"3", "sender":"fiddler", "message":"Fine too, cockatoo!", "date":"29.03.2015, 11:43:55", "deleted":"false"}],"token":"TN51EN"}
+
+------------------------------------------------------------------
+

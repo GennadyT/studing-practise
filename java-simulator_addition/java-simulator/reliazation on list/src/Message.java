@@ -18,11 +18,12 @@ public class Message {
     }
 
     public void modify(String newMessageText) {
-
+        messageText = newMessageText;
     }
 
     public void delete() {
         isDeleted = true;
+        messageText = "deleted";
     }
 
     public String getID() {
@@ -57,29 +58,40 @@ public class Message {
         return isDeleted;
     }
 
-    public void setIsDeleted(boolean isDeleted) {
-        this.isDeleted = isDeleted;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Message)) return false;
+
+        Message message = (Message) o;
+
+        return ID.equals(message.ID);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return ID.hashCode();
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{\"id\":\"").append(ID)
-          .append("\", \"sender\":\"").append(senderName)
-          .append("\", \"message\":\"").append(messageText)
-          .append("\", \"date\":\"").append(date)
-          .append("\", \"deleted\":\"").append(isDeleted).append("\"}");
+        .append("\", \"sender\":\"").append(senderName)
+        .append("\", \"message\":\"").append(messageText)
+        .append("\", \"date\":\"").append(date)
+        .append("\", \"deleted\":\"").append(isDeleted).append("\"}");
         return sb.toString();
     }
 
     public String getReadableView() {
         StringBuilder sb = new StringBuilder("Message from ");
         sb.append(senderName)
-          .append(" in ")
-          .append(getDate())
-          .append(" : ")
-          .append(getMessageText());
+        .append(" in ")
+        .append(getDate())
+        .append(" : ")
+        .append(getMessageText());
         return sb.toString();
     }
-
 }

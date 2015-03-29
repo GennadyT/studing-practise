@@ -25,13 +25,13 @@ public class MessageExchange {
         return jsonObject.toJSONString();
     }
 
-    public String getClientSendMessageRequest(Message message) {
+    public String getClientSendMessageRequest(String senderName, String message) {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id", message.getID());
-        jsonObject.put("sender", message.getSenderName());
-        jsonObject.put("message", message.getMessageText());
-        jsonObject.put("deleted", message.isDeleted());
-        jsonObject.put("date", message.getDate());
+        jsonObject.put("id", String.valueOf(GeneratorFactory.generateId()));
+        jsonObject.put("sender", senderName);
+        jsonObject.put("message", message);
+        jsonObject.put("date", GeneratorFactory.generateCurrentDate());
+        jsonObject.put("deleted", "false");
         return jsonObject.toJSONString();
     }
 

@@ -76,7 +76,7 @@ public class Client implements Runnable {
         return list;
     }
 
-    public void sendMessage(String messageText) {
+    public void sendMessage(String message) {
         HttpURLConnection connection = null;
         try {
             connection = getHttpURLConnection();
@@ -85,10 +85,7 @@ public class Client implements Runnable {
             connection.setRequestMethod("POST");
 
             DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-            String id = String.valueOf(GeneratorFactory.generateId());
-            String date = GeneratorFactory.generateCurrentDate();
-            Message message = new Message(id, clientName, messageText, date, false);
-            byte[] bytes = messageExchange.getClientSendMessageRequest(message).getBytes();
+            byte[] bytes = messageExchange.getClientSendMessageRequest(clientName, message).getBytes();
             wr.write(bytes, 0, bytes.length);
             wr.flush();
             wr.close();

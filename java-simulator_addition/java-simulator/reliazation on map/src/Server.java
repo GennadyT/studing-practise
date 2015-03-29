@@ -11,7 +11,7 @@ import java.net.InetSocketAddress;
 import java.util.*;
 
 public class Server implements HttpHandler {
-    private Map<String, Message> history =new LinkedHashMap<String, Message>();
+    private Map<String, Message> history = new LinkedHashMap<String, Message>();
     private MessageExchange messageExchange = new MessageExchange();
 
     public static void main(String[] args) {

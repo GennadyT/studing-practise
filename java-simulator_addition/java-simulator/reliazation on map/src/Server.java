@@ -27,7 +27,6 @@ public class Server implements HttpHandler {
                 System.out.println("Get list of messages: GET http://" + serverHost + ":" + port + "/chat?token={token}");
                 System.out.println("Send message: POST http://" + serverHost + ":" + port + "/chat provide body json in format {{\"id\":\"id\", " +
                         "\"sender\":\"sender name\", \"message\":\"message text\", \"date\":\"current date\"} ");
-
                 server.createContext("/chat", new Server());
                 server.setExecutor(null);
                 server.start();
@@ -87,7 +86,7 @@ public class Server implements HttpHandler {
             Message messageId = messageExchange.getClientMessage(httpExchange.getRequestBody());
             boolean check = false;
             Message message = history.get(messageId.getID());
-            if (message != null && !message.isDeleted() && messageId.equals(message)) {
+            if (message != null && !message.isDeleted()) {
                 check = true;
                 System.out.println("Delete " + message.getReadableView());
                 message.delete();
@@ -105,7 +104,7 @@ public class Server implements HttpHandler {
             Message newMessage = messageExchange.getClientMessage(httpExchange.getRequestBody());
             boolean check = false;
             Message message = history.get(newMessage.getID());
-            if (message != null && !message.isDeleted() && newMessage.equals(message)) {
+            if (message != null && !message.isDeleted()) {
                 check = true;
                 System.out.println("Edit " + message.getReadableView());
                 message.modify(newMessage.getMessageText());

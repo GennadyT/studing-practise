@@ -1,6 +1,24 @@
-GET http://localhost:8888/chat?token=TN11EN HTTP/1.1
-User-Agent: Java/1.8.0_31
-Host: localhost:8888
+GET http://192.168.1.3:8888/chat?token=TN11EN HTTP/1.1
+Host: 192.168.1.3:8888
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Cache-Control: max-age=0
+
+
+HTTP/1.1 200 OK
+Date: Mon, 23 Mar 2015 18:39:12 GMT
+Content-length: 61
+
+{"messages":["Hello","It is from fiddler."],"token":"TN11EN"}
+
+------------------------------------------------------------------
+
+GET http://192.168.1.3:8888/chat?token=TN11EN HTTP/1.1
+User-Agent: Java/1.8.0_40
+Host: 192.168.1.3:8888
 Accept: text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2
 Connection: keep-alive
 
@@ -13,9 +31,9 @@ Content-length: 61
 
 ------------------------------------------------------------------
 
-GET http://localhost:8888/chat?token=TN27EN HTTP/1.1
-User-Agent: Java/1.8.0_31
-Host: localhost:8888
+GET http://192.168.1.3:8888/chat?token=TN27EN HTTP/1.1
+User-Agent: Java/1.8.0_40
+Host: 192.168.1.3:8888
 Accept: text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2
 Connection: keep-alive
 
@@ -25,23 +43,6 @@ Date: Mon, 23 Mar 2015 18:39:27 GMT
 Content-length: 32
 
 {"messages":[],"token":"TN11EN"}
-
-------------------------------------------------------------------
-
-GET http://192.168.1.2:8888/chat?token=TN11EN HTTP/1.1
-Host: 192.168.1.2:8888
-Proxy-Connection: keep-alive
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
-User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.101 Safari/537.36
-Accept-Encoding: gzip, deflate, sdch
-Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
-
-
-HTTP/1.1 200 OK
-Date: Mon, 23 Mar 2015 18:39:12 GMT
-Content-length: 61
-
-{"messages":["Hello","It is from fiddler."],"token":"TN11EN"}
 
 ------------------------------------------------------------------
 

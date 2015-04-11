@@ -2,9 +2,9 @@
 *.out
 **/build
 **/nbproject
-**/out
 *.mf
 *.class
 .idea/
 *.iml
 target
+out/

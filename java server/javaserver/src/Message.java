@@ -6,19 +6,22 @@ public class Message {
     private final String ID;
     private String senderName;
     private String messageText;
-    private String date;
+    private String sendDate;
+    private String modifyDate;
     private boolean isDeleted;
 
-    public Message(String ID, String senderName, String messageText, String date, boolean isDeleted) {
+    public Message(String ID, String senderName, String messageText, String sendDate, String modifyDate, boolean isDeleted) {
         this.ID = ID;
         this.senderName = senderName;
         this.messageText = messageText;
-        this.date = date;
+        this.sendDate = sendDate;
+        this.modifyDate = modifyDate;
         this.isDeleted = isDeleted;
     }
 
     public void modify(String newMessageText) {
         messageText = newMessageText;
+        modifyDate = GeneratorFactory.generateCurrentDate();
     }
 
     public void delete() {
@@ -30,28 +33,12 @@ public class Message {
         return ID;
     }
 
-    public String getSenderName() {
-        return senderName;
-    }
-
-    public void setSenderName(String senderName) {
-        this.senderName = senderName;
-    }
-
     public String getMessageText() {
         return messageText;
     }
 
-    public void setMessageText(String messageText) {
-        this.messageText = messageText;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+    public String getSendDate() {
+        return sendDate;
     }
 
     public boolean isDeleted() {
@@ -59,29 +46,14 @@ public class Message {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Message)) return false;
-
-        Message message = (Message) o;
-
-        return ID.equals(message.ID);
-
-    }
-
-    @Override
-    public int hashCode() {
-        return ID.hashCode();
-    }
-
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{\"id\":\"").append(ID)
-        .append("\", \"sender\":\"").append(senderName)
-        .append("\", \"message\":\"").append(messageText)
-        .append("\", \"date\":\"").append(date)
-        .append("\", \"deleted\":\"").append(isDeleted).append("\"}");
+        .append("\", \"senderName\":\"").append(senderName)
+        .append("\", \"messageText\":\"").append(messageText)
+        .append("\", \"sendDate\":\"").append(sendDate)
+        .append("\", \"modifyDate\":\"").append(modifyDate)
+        .append("\", \"isDeleted\":\"").append(isDeleted).append("\"}");
         return sb.toString();
     }
 
@@ -89,7 +61,7 @@ public class Message {
         StringBuilder sb = new StringBuilder("Message from ");
         sb.append(senderName)
         .append(" in ")
-        .append(getDate())
+        .append(getSendDate())
         .append(" : ")
         .append(getMessageText());
         return sb.toString();

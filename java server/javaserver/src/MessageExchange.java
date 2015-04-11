@@ -20,31 +20,38 @@ public class MessageExchange {
         return (Integer.valueOf(token.substring(2, token.length() - 2)) - 11) / 8;
     }
 
-    public String getServerResponse(List<Message> messages) {
+    public String getServerResponse(List<Message> messages, int historySize) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("messages", messages);
-        jsonObject.put("token", getToken(messages.size()));
-        return jsonObject.toJSONString();
-    }
-
-    public String getClientSendMessageRequest(String senderName, String message) {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id", String.valueOf(GeneratorFactory.generateId()));
-        jsonObject.put("sender", senderName);
-        jsonObject.put("message", message);
-        jsonObject.put("date", GeneratorFactory.generateCurrentDate());
-        jsonObject.put("deleted", "false");
+        jsonObject.put("token", getToken(historySize));
         return jsonObject.toJSONString();
     }
 
     public Message getClientMessage(InputStream inputStream) throws ParseException {
         JSONObject jsonObject = getJSONObject(inputStreamToString(inputStream));
-        return new Message((String) jsonObject.get("id"), (String) jsonObject.get("sender"),
-                (String) jsonObject.get("message"), (String) jsonObject.get("date"), "true".equals(jsonObject.get("deleted")));
+        return new Message((String) jsonObject.get("id"), (String) jsonObject.get("senderName"),
+                (String) jsonObject.get("messageText"), getSendDate(jsonObject), getModifyDate(jsonObject),
+                "true".equals(jsonObject.get("isDeleted")));
     }
 
     public JSONObject getJSONObject(String json) throws ParseException {
         return (JSONObject) jsonParser.parse(json.trim());
+    }
+
+    public String getSendDate(JSONObject jsonObject) {
+        String date = (String) jsonObject.get("sendDate");
+        if (date != null) {
+            return date;
+        }
+        return GeneratorFactory.generateCurrentDate();
+    }
+
+    public String getModifyDate(JSONObject jsonObject) {
+        String date = (String) jsonObject.get("modifyDate");
+        if (date != null) {
+            return date;
+        }
+        return "not modified";
     }
 
     public String inputStreamToString(InputStream in) {

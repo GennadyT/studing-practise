@@ -1,25 +1,29 @@
 /**
  * Created by Gennady on 03.03.2015.
  */
+
+'use strict';
+
 var getId = function() {
     var currentDate = Date.now();
     var random = Math.random() * Math.random();
     return Math.floor(currentDate * random).toString();
 };
 
-var theMessage = function(date, sender, message, modify) {
+var theMessage = function(sender, message, id) {
     return {
-        date: date,
+        id: id || getId(),
         senderName: sender,
-        messageText: message,
-        modifyText: modify,
-        id: getId()
+        messageText: message
     };
 };
 
-var currentUser;
-
-var messageList = [];
+var chatState = {
+    chatUrl : 'http://localhost:999/chat',
+    currentUser : null,
+    messageList : [],
+    token : 'TN11EN'
+};
 
 function run() {
     var appContainer = document.getElementsByClassName('wrapper')[0];
@@ -27,8 +31,7 @@ function run() {
     appContainer.addEventListener('keydown', delegateEvent);
     var currentUser = restoreCurrentUser();
     setCurrentUser(currentUser);
-    var messages = restoreMessages();
-    createAllMessages(messages);
+    restoreMessages();
 }
 
 function setCurrentUser(user) {
@@ -49,8 +52,8 @@ function createAllMessages(messages) {
 
 function updateAllMessages() {
     var chatBox = document.getElementsByClassName('chat-box')[0];
-    for (var i = 0; i < messageList.length; i++) {
-        updateMessage(chatBox.children[i], messageList[i]);
+    for (var i = 0; i < chatState.messageList.length; i++) {
+        updateMessage(chatBox.children[i], chatState.messageList[i]);
     }
 }
 
@@ -113,7 +116,7 @@ function createSignStructure(type) {
     var sign = document.getElementsByClassName('sign')[0];
     var htmlAsText;
     if (type == 'read') {
-        htmlAsText = '<xmp id="user-name">' + currentUser + '</xmp>'
+        htmlAsText = '<xmp id="user-name">' + chatState.currentUser + '</xmp>'
         + '<button id="sign-edit" class="sign-button">Edit</button>'
         + '<button id="sign-out" class="sign-button">Sign Out</button>';
     }
@@ -132,8 +135,8 @@ function createSignStructure(type) {
 function onSignInClick() {
     var name = document.getElementById('sign-name');
     if (inputChecker(name.value) == true) {
-        currentUser = name.value;
-        storeCurrentUser(currentUser);
+        chatState.currentUser = name.value;
+        storeCurrentUser(chatState.currentUser);
         createSignStructure('read');
         sendActivator(true);
         updateAllMessages();
@@ -146,17 +149,15 @@ function onSignInClick() {
 function onSignEditClick() {
     createSignStructure('modify');
     var name = document.getElementById('sign-name');
-    name.value = currentUser;
+    name.value = chatState.currentUser;
     name.focus();
     sendActivator(false);
 }
 
 function onSignOutClick() {
     createSignStructure('out');
-    currentUser = null;
-    if (storageAccessibleCheck()) {
-        localStorage.removeItem("Current user");
-    }
+    chatState.currentUser = null;
+    localStorage.removeItem("Current user");
     updateAllMessages();
     sendActivator(false);
 }
@@ -164,19 +165,15 @@ function onSignOutClick() {
 function onMessageSend() {
     var messageText = document.getElementById('message-text');
     if (inputChecker(messageText.value) == true) {
-        var item = theMessage('(' + timeFormat() + ')', currentUser, messageText.value.trim());
-        addMessage(item);
-        storeMessages(messageList);
+        var message = theMessage(chatState.currentUser, messageText.value.trim().replace(new RegExp("\n", 'g'), "\\n"));
+        postRequest(chatState.chatUrl, JSON.stringify(message), function () {
+            restoreMessages();
+        });
         messageText.value = '';
     }
     else {
         messageText.focus();
     }
-}
-
-function timeFormat() {
-    var date = new Date();
-    return date.toLocaleString();
 }
 
 function scrollDown() {
@@ -187,14 +184,15 @@ function scrollDown() {
 function addMessage(message) {
     var item = createMessage(message);
     var chatBox = document.getElementsByClassName('chat-box')[0];
-    messageList.push(message);
+    chatState.messageList.push(message);
     chatBox.appendChild(item);
     scrollDown();
 }
 
 function createMessage(message) {
     var item = document.createElement('div');
-    item.innerHTML = '<div class="message sender-name">' + message.date + ' ' + message.senderName + '</div>'
+    var sendDate = '(' + message.sendDate + ')';
+    item.innerHTML = '<div class="message sender-name">' + sendDate + ' ' + message.senderName + '</div>'
     + '<xmp class="message message-item">' + message.messageText + '</xmp>';
     item.setAttribute('class', 'message');
     item.setAttribute('id', message.id);
@@ -203,15 +201,15 @@ function createMessage(message) {
 }
 
 function updateMessage(divMessage, message) {
-    var messageText = divMessage.getElementsByClassName('message-item')[0];
-    if (message.modifyText == 'deleted') {
+    //var messageText = divMessage.getElementsByClassName('message-item')[0];
+    if (message.isDeleted == 'true') {
         setDelete(divMessage, message);
         return;
     }
-    if(message.modifyText != null) {
+    if(message.modifyDate != 'not modified') {
         setModify(divMessage, message);
     }
-    if (currentUser != undefined && message.senderName.toLowerCase() == currentUser.toLowerCase()) {
+    if (chatState.currentUser != undefined && message.senderName.toLowerCase() == chatState.currentUser.toLowerCase()) {
         addTool(divMessage);
     }
     else {
@@ -220,7 +218,7 @@ function updateMessage(divMessage, message) {
 }
 
 function setDelete(divMessage, message) {
-    divMessage.innerHTML = '<div class="message sender-name">' + message.date + ' '
+    divMessage.innerHTML = '<div class="message sender-name">' + message.sendDate + ' '
     + message.senderName + '</div>' + '<p class="modify">deleted</p>';
 }
 
@@ -232,7 +230,7 @@ function setModify(divMessage, message) {
         modify.setAttribute('id', 'modify-edit');
         divMessage.appendChild(modify);
     }
-    modify.innerHTML = message.modifyText;
+    modify.innerHTML = 'Message was modified on ' + message.modifyDate;
 }
 
 function addTool(divMessage) {
@@ -321,63 +319,115 @@ function onMessageConfirmClick(tools) {
     tools.removeChild(tools.lastChild);
     tools.appendChild(toolsButtonsChange('edit'));
     var id = divMessage.attributes['id'].value;
-    for (var i = 0; i < messageList.length; i++) {
-        if (messageList[i].id != id) {
+    for (var i = 0; i < chatState.messageList.length; i++) {
+        if (chatState.messageList[i].id != id) {
             continue;
         }
-        messageList[i].messageText = text;
-        messageList[i].modifyText = 'Message was modified on ' + timeFormat();
-        updateMessage(divMessage, messageList[i]);
-        storeMessages(messageList);
+        var editedMessage = theMessage(chatState.messageList[i].senderName, text, id);
+        putRequest(chatState.chatUrl, JSON.stringify(editedMessage), function() {
+            updateDataMessage(i, divMessage);
+        });
         return;
     }
 }
 
 function onMessageDelete(divMessage) {
     var id = divMessage.attributes['id'].value;
-    for (var i = 0; i < messageList.length; i++) {
-        if (messageList[i].id != id) {
+    for (var i = 0; i < chatState.messageList.length; i++) {
+        if (chatState.messageList[i].id != id) {
             continue;
         }
-        messageList[i].messageText = '';
-        messageList[i].modifyText = 'deleted';
-        updateMessage(divMessage, messageList[i]);
-        storeMessages(messageList);
+        deleteRequest(chatState.chatUrl, JSON.stringify(chatState.messageList[i]), function () {
+            updateDataMessage(i, divMessage);
+        });
         return;
     }
 }
 
-function storageAccessibleCheck() {
-    if (typeof(Storage) == "undefined") {
-        alert('localStorage is not accessible');
-        return false;
-    }
-    return true;
+function updateDataMessage(index, divMessage, continueWith) {
+    var url = chatState.chatUrl + '?token=TN' + (index * 8 + 11) + 'EN';
+    getRequest(url, function (responseText) {
+        var response = JSON.parse(responseText);
+        var messageToUpdate = response.messages[0];
+        chatState.token = response.token;
+        chatState.messageList[index] = messageToUpdate;
+        updateMessage(divMessage, messageToUpdate);
+        continueWith && continueWith();
+    });
 }
 
 function storeCurrentUser(user) {
-    if (storageAccessibleCheck()) {
-        localStorage.removeItem("Current user");
-        localStorage.setItem("Current user", JSON.stringify(user));
-    }
-}
-
-function storeMessages(messagesToSave) {
-    if (storageAccessibleCheck()) {
-        localStorage.setItem("Chat messages", JSON.stringify(messagesToSave));
-    }
+    localStorage.removeItem("Current user");
+    localStorage.setItem("Current user", JSON.stringify(user));
 }
 
 function restoreCurrentUser() {
-    if (storageAccessibleCheck()) {
-        var currentUser = localStorage.getItem("Current user");
-        return currentUser && JSON.parse(currentUser);
-    }
+    var currentUser = localStorage.getItem("Current user");
+    return currentUser && JSON.parse(currentUser);
 }
 
-function restoreMessages() {
-    if (storageAccessibleCheck()) {
-        var messages = localStorage.getItem("Chat messages");
-        return messages && JSON.parse(messages)
+function restoreMessages(continueWith) {
+    var url = chatState.chatUrl + '?token=' + chatState.token;
+    getRequest(url, function(responseText) {
+        var response = JSON.parse(responseText);
+        chatState.token = response.token;
+        createAllMessages(response.messages);
+        continueWith && continueWith();
+    });
+}
+
+function getRequest(url, continueWith) {
+    ajax('GET', url, null, continueWith);
+}
+
+function postRequest(url, data, continueWith) {
+    ajax('POST', url, data, continueWith);
+}
+
+function deleteRequest(url, data, continueWith) {
+    ajax('DELETE', url, data, continueWith);
+}
+
+function putRequest(url, data, continueWith) {
+    ajax('PUT', url, data, continueWith);
+}
+
+function ajax(method, url, data, continueWith, continueWithError) {
+    var xhr = new XMLHttpRequest();
+    
+    //continueWithError = continueWithError /*|| defaultErrorHandler*/;
+    xhr.open(method || 'GET', url, true);
+
+    xhr.onload = function () {
+        if (xhr.readyState !== 4)
+            return;
+
+        if(xhr.status != 200) {
+            continueWithError('Error on the server side, response ' + xhr.status);
+            return;
+        }
+
+        //if(isError(xhr.responseText)) {
+        //    continueWithError('Error on the server side, response ' + xhr.responseText);
+        //    return;
+        //}
+
+        continueWith(xhr.responseText);
+    };/*
+
+    xhr.ontimeout = function () {
+        ontinueWithError('Server timed out !');
     }
+
+    xhr.onerror = function (e) {
+        var errMsg = 'Server connection error !\n'+
+            '\n' +
+            'Check if \n'+
+            '- server is active\n'+
+            '- server sends header "Access-Control-Allow-Origin:*"';
+
+        continueWithError(errMsg);
+    };*/
+
+    xhr.send(data);
 }

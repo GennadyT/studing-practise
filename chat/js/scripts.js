@@ -1,7 +1,6 @@
 /**
  * Created by Gennady on 03.03.2015.
  */
-
 'use strict';
 
 var getId = function() {
@@ -19,10 +18,12 @@ var theMessage = function(sender, message, id) {
 };
 
 var chatState = {
-    chatUrl : 'http://localhost:999/chat',
-    currentUser : null,
-    messageList : [],
-    token : 'TN11EN'
+    chatUrl: 'http://localhost:999/chat',
+    currentUser: null,
+    messageList: [],
+    token: 'TN11EN',
+    isAvailable: false,
+    interval: null
 };
 
 function run() {
@@ -32,7 +33,22 @@ function run() {
     var currentUser = restoreCurrentUser();
     setCurrentUser(currentUser);
     restoreMessages();
-}
+}/*
+
+function Connect(continueWith) {
+    var url = chatState.chatUrl + '?token=' + chatState.token;
+    if (chatState.interval)
+        return;
+    chatState.interval = setInterval(function () {
+        getRequest(url, function (responseText) {
+            var response = JSON.parse(responseText);
+            chatState.token = response.token;
+            url = chatState.chatUrl + '?token=' + chatState.token;
+            chatState.interval && createAllMessages(response.messages);
+            continueWith && continueWith();
+        });
+    }, 1000);
+}*/
 
 function setCurrentUser(user) {
     if (user != null) {
@@ -162,12 +178,12 @@ function onSignOutClick() {
     sendActivator(false);
 }
 
-function onMessageSend() {
+function onMessageSend(continueWith) {
     var messageText = document.getElementById('message-text');
     if (inputChecker(messageText.value) == true) {
         var message = theMessage(chatState.currentUser, messageText.value.trim().replace(new RegExp("\n", 'g'), "\\n"));
         postRequest(chatState.chatUrl, JSON.stringify(message), function () {
-            restoreMessages();
+            continueWith && continueWith();
         });
         messageText.value = '';
     }
@@ -201,7 +217,6 @@ function createMessage(message) {
 }
 
 function updateMessage(divMessage, message) {
-    //var messageText = divMessage.getElementsByClassName('message-item')[0];
     if (message.isDeleted == 'true') {
         setDelete(divMessage, message);
         return;
@@ -367,67 +382,128 @@ function restoreCurrentUser() {
 }
 
 function restoreMessages(continueWith) {
-    var url = chatState.chatUrl + '?token=' + chatState.token;
+    /*var url = chatState.chatUrl + '?token=' + chatState.token;
     getRequest(url, function(responseText) {
         var response = JSON.parse(responseText);
         chatState.token = response.token;
         createAllMessages(response.messages);
         continueWith && continueWith();
     });
+    Connect();*/
+    var url = chatState.chatUrl + '?token=' + chatState.token;
+    if (chatState.interval)
+        return;
+    chatState.interval = setInterval(function () {
+        getRequest(url, function (responseText) {
+            var response = JSON.parse(responseText);
+            chatState.token = response.token;
+            url = chatState.chatUrl + '?token=' + chatState.token;
+            chatState.interval && createAllMessages(response.messages);
+            scrollDown();
+            continueWith && continueWith();
+        });
+    }, 1000);
 }
 
-function getRequest(url, continueWith) {
-    ajax('GET', url, null, continueWith);
+function getRequest(url, continueWith, continueWithError) {
+    ajax('GET', url, null, continueWith, continueWithError);
 }
 
-function postRequest(url, data, continueWith) {
-    ajax('POST', url, data, continueWith);
+function postRequest(url, data, continueWith, continueWithError) {
+    ajax('POST', url, data, continueWith, continueWithError);
 }
 
-function deleteRequest(url, data, continueWith) {
-    ajax('DELETE', url, data, continueWith);
+function deleteRequest(url, data, continueWith, continueWithError) {
+    ajax('DELETE', url, data, continueWith, continueWithError);
 }
 
-function putRequest(url, data, continueWith) {
-    ajax('PUT', url, data, continueWith);
+function putRequest(url, data, continueWith, continueWithError) {
+    ajax('PUT', url, data, continueWith, continueWithError);
+}
+
+function defaultErrorHandler(message) {
+    console.error(message);
+}
+
+function isError(text) {
+    if(text == "")
+        return false;
+    try {
+        var obj = JSON.parse(text);
+    } catch(ex) {
+        return true;
+    }
+    return !!obj.error;
 }
 
 function ajax(method, url, data, continueWith, continueWithError) {
     var xhr = new XMLHttpRequest();
-    
-    //continueWithError = continueWithError /*|| defaultErrorHandler*/;
+    continueWithError = continueWithError || defaultErrorHandler;
     xhr.open(method || 'GET', url, true);
-
     xhr.onload = function () {
         if (xhr.readyState !== 4)
             return;
-
-        if(xhr.status != 200) {
+        if (xhr.status != 200) {
+            serverAvailable(false, method);
             continueWithError('Error on the server side, response ' + xhr.status);
             return;
         }
 
-        //if(isError(xhr.responseText)) {
-        //    continueWithError('Error on the server side, response ' + xhr.responseText);
-        //    return;
-        //}
-
+        if (isError(xhr.responseText)) {
+            serverAvailable(false, method);
+            continueWithError('Error on the server side, response ' + xhr.responseText);
+            return;
+        }
+        serverAvailable(true, method);
         continueWith(xhr.responseText);
-    };/*
-
+    };
     xhr.ontimeout = function () {
+        serverAvailable(false, method);
         ontinueWithError('Server timed out !');
-    }
-
+    };
     xhr.onerror = function (e) {
-        var errMsg = 'Server connection error !\n'+
+        serverAvailable(false, method);
+        var errMsg = 'Server connection error !\n' +
             '\n' +
-            'Check if \n'+
-            '- server is active\n'+
+            'Check if \n' +
+            '- server is active\n' +
             '- server sends header "Access-Control-Allow-Origin:*"';
 
         continueWithError(errMsg);
-    };*/
-
+    };
     xhr.send(data);
+}
+
+function serverAvailable(newCondition, method) {
+    if (chatState.isAvailable != newCondition) {
+        availableSwitcher(newCondition)
+    }
+    if (method != 'GET' && !chatState.isAvailable) {
+        unavailableAlert(method);
+    }
+}
+
+function availableSwitcher(newCondition) {
+    var indicator = document.getElementsByClassName('indication-circle')[0];
+    if (newCondition) {
+        indicator.style.background = "#92D36E";
+    }
+    else {
+        indicator.style.background = "#E61610";
+    }
+    chatState.isAvailable = newCondition;
+}
+
+function unavailableAlert(method) {
+    var error;
+    if (method == 'POST') {
+        error = "Message hasn't been sent. Server is unavailable";
+    }
+    if (method == 'PUT') {
+        error = "Message hasn't been edited. Server is unavailable";
+    }
+    if (method == 'DELETE') {
+        error = "Message hasn't been deleted. Server is unavailable";
+    }
+    alert(error);
 }

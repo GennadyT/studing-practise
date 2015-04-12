@@ -26,10 +26,10 @@ public class Server implements HttpHandler {
                 String serverHost = InetAddress.getLocalHost().getHostAddress();
                 System.out.println("Get list of messages: GET http://" + serverHost + ":" + port + "/chat?token={token}");
                 System.out.println("Send message: POST http://" + serverHost + ":" + port + "/chat provide body json in format {\"id\":\"id\", " +
-                        "\"sender\":\"sender name\", \"message\":\"message text\", \"date\":\"current date\"}");
+                        "\"senderName\":\"sender name\", \"messageText\":\"message text\"}");
                 System.out.println("Delete message: DELETE http://" + serverHost + ":" + port + "/chat provide body json in format {\"id\":\"id\"}");
                 System.out.println("Edit message: PUT http://" + serverHost + ":" + port + "/chat provide body json in format {\"id\":\"id\", " +
-                        "\"message\":\"message text\"}");
+                        "\"messageText\":\"message text\"}");
                 server.createContext("/chat", new Server());
                 server.setExecutor(null);
                 server.start();

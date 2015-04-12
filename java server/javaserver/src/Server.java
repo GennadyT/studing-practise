@@ -68,7 +68,7 @@ public class Server implements HttpHandler {
             if (token != null && !"".equals(token)) {
                 int index = messageExchange.getIndex(token);
                 List<Message> historyList = new ArrayList<Message>(history.values());
-                return messageExchange.getServerResponse(historyList.subList(index, history.size()),historyList.size());
+                return messageExchange.getServerResponse(historyList.subList(index, history.size()), historyList.size());
             } else {
                 return "Token query parameter is absent in url: " + query;
             }

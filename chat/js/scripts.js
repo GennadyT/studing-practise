@@ -42,21 +42,6 @@ function setCurrentUser(user) {
     }
 }
 
-function createAllMessages(messages) {
-    if (messages != null) {
-        for (var i = 0; i < messages.length; i++) {
-            addMessage(messages[i]);
-        }
-    }
-}
-
-function updateAllMessages() {
-    var chatBox = document.getElementsByClassName('chat-box')[0];
-    for (var i = 0; i < chatState.messageList.length; i++) {
-        updateMessage(chatBox.children[i], chatState.messageList[i]);
-    }
-}
-
 function delegateEvent(evtObj) {
     if (evtObj.type === 'click') {
         if (evtObj.target.classList.contains('sign-button')) {
@@ -69,7 +54,7 @@ function delegateEvent(evtObj) {
             onMessageEdit(evtObj.target);
         }
     }
-    if(evtObj.type === 'keydown' && evtObj.ctrlKey && evtObj.keyCode == 13) {
+    if (evtObj.type === 'keydown' && evtObj.ctrlKey && evtObj.keyCode == 13) {
         if (evtObj.target.classList.contains('send-message')) {
             onMessageSend();
         }
@@ -139,7 +124,7 @@ function onSignInClick() {
         storeCurrentUser(chatState.currentUser);
         createSignStructure('read');
         sendActivator(true);
-        updateAllMessages();
+        createOrUpdateMessages(chatState.messageList);
     }
     else {
         name.focus();
@@ -158,7 +143,7 @@ function onSignOutClick() {
     createSignStructure('out');
     chatState.currentUser = null;
     localStorage.removeItem("Current user");
-    updateAllMessages();
+    createOrUpdateMessages(chatState.messageList);
     sendActivator(false);
 }
 
@@ -284,7 +269,6 @@ function makeToEdit(divMessage, type) {
         item.setAttribute('class', 'message message-item');
         text = message.value.trim();
         item.innerHTML = text;
-        item.focus();
     }
     divMessage.replaceChild(item, message);
     item.focus();
@@ -312,45 +296,22 @@ function onMessageEditClick(tools) {
     tools.appendChild(toolsButtonsChange('confirm'));
 }
 
-function onMessageConfirmClick(tools) {
+function onMessageConfirmClick(tools, continueWith) {
     var divMessage = tools.parentElement;
     var text = makeToEdit(divMessage, 'read');
     tools.removeChild(tools.lastChild);
     tools.appendChild(toolsButtonsChange('edit'));
     var id = divMessage.attributes['id'].value;
-    for (var i = 0; i < chatState.messageList.length; i++) {
-        if (chatState.messageList[i].id != id) {
-            continue;
-        }
-        var editedMessage = theMessage(chatState.messageList[i].senderName, text, id);
-        putRequest(chatState.chatUrl, JSON.stringify(editedMessage), function() {
-            updateDataMessage(i, divMessage);
-        });
-        return;
-    }
+    var editMessage = theMessage("", text, id);
+    putRequest(chatState.chatUrl, JSON.stringify(editMessage), function () {
+        continueWith && continueWith();
+    });
 }
 
-function onMessageDelete(divMessage) {
+function onMessageDelete(divMessage, continueWith) {
     var id = divMessage.attributes['id'].value;
-    for (var i = 0; i < chatState.messageList.length; i++) {
-        if (chatState.messageList[i].id != id) {
-            continue;
-        }
-        deleteRequest(chatState.chatUrl, JSON.stringify(chatState.messageList[i]), function () {
-            updateDataMessage(i, divMessage);
-        });
-        return;
-    }
-}
-
-function updateDataMessage(index, divMessage, continueWith) {
-    var url = chatState.chatUrl + '?token=TN' + (index * 8 + 11) + 'EN';
-    getRequest(url, function (responseText) {
-        var response = JSON.parse(responseText);
-        var messageToUpdate = response.messages[0];
-        chatState.token = response.token;
-        chatState.messageList[index] = messageToUpdate;
-        updateMessage(divMessage, messageToUpdate);
+    var deleteMessage = theMessage("", "", id);
+    deleteRequest(chatState.chatUrl, JSON.stringify(deleteMessage), function () {
         continueWith && continueWith();
     });
 }
@@ -379,9 +340,30 @@ function restoreMessages(continueWith) {
 function getHistory(responseText, continueWith) {
     var response = JSON.parse(responseText);
     chatState.token = response.token;
-    createAllMessages(response.messages);
-    scrollDown();
+    createOrUpdateMessages(response.messages);
     continueWith && continueWith();
+}
+
+function createOrUpdateMessages(messages) {
+    var chatBox = document.getElementsByClassName('chat-box')[0];
+    for (var i = 0; i < messages.length; i++) {
+        var index = findMessageIndexById(messages[i].id);
+        if (index > -1) {
+            updateMessage(chatBox.children[index], messages[i]);
+        }
+        else {
+            addMessage(messages[i]);
+        }
+    }
+}
+
+function findMessageIndexById(id) {
+    for (var i = 0; i < chatState.messageList.length; i++) {
+        if (chatState.messageList[i].id == id) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 function getRequest(url, continueWith, continueWithError) {
@@ -402,6 +384,7 @@ function putRequest(url, data, continueWith, continueWithError) {
 
 function defaultErrorHandler(message) {
     console.error(message);
+    restoreMessages();
 }
 
 function isError(text) {
@@ -427,7 +410,6 @@ function ajax(method, url, data, continueWith, continueWithError) {
             continueWithError('Error on the server side, response ' + xhr.status);
             return;
         }
-
         if (isError(xhr.responseText)) {
             serverAvailable(false, method);
             continueWithError('Error on the server side, response ' + xhr.responseText);
@@ -438,9 +420,9 @@ function ajax(method, url, data, continueWith, continueWithError) {
     };
     xhr.ontimeout = function () {
         serverAvailable(false, method);
-        ontinueWithError('Server timed out!');
+        continueWithError('Server timed out!');
     };
-    xhr.onerror = function (e) {
+    xhr.onerror = function () {
         serverAvailable(false, method);
         var errMsg = 'Server connection error!\n' +
             '\n' +

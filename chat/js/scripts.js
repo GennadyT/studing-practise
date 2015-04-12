@@ -22,8 +22,7 @@ var chatState = {
     currentUser: null,
     messageList: [],
     token: 'TN11EN',
-    isAvailable: false,
-    interval: null
+    isAvailable: false
 };
 
 function run() {
@@ -33,22 +32,7 @@ function run() {
     var currentUser = restoreCurrentUser();
     setCurrentUser(currentUser);
     restoreMessages();
-}/*
-
-function Connect(continueWith) {
-    var url = chatState.chatUrl + '?token=' + chatState.token;
-    if (chatState.interval)
-        return;
-    chatState.interval = setInterval(function () {
-        getRequest(url, function (responseText) {
-            var response = JSON.parse(responseText);
-            chatState.token = response.token;
-            url = chatState.chatUrl + '?token=' + chatState.token;
-            chatState.interval && createAllMessages(response.messages);
-            continueWith && continueWith();
-        });
-    }, 1000);
-}*/
+}
 
 function setCurrentUser(user) {
     if (user != null) {
@@ -382,27 +366,22 @@ function restoreCurrentUser() {
 }
 
 function restoreMessages(continueWith) {
-    /*var url = chatState.chatUrl + '?token=' + chatState.token;
-    getRequest(url, function(responseText) {
-        var response = JSON.parse(responseText);
-        chatState.token = response.token;
-        createAllMessages(response.messages);
-        continueWith && continueWith();
-    });
-    Connect();*/
     var url = chatState.chatUrl + '?token=' + chatState.token;
-    if (chatState.interval)
-        return;
-    chatState.interval = setInterval(function () {
-        getRequest(url, function (responseText) {
-            var response = JSON.parse(responseText);
-            chatState.token = response.token;
-            url = chatState.chatUrl + '?token=' + chatState.token;
-            chatState.interval && createAllMessages(response.messages);
-            scrollDown();
-            continueWith && continueWith();
+    getRequest(url, function (responseText) {
+        getHistory(responseText, function () {
+            setTimeout(function () {
+                restoreMessages(continueWith);
+            }, 1000);
         });
-    }, 1000);
+    });
+}
+
+function getHistory(responseText, continueWith) {
+    var response = JSON.parse(responseText);
+    chatState.token = response.token;
+    createAllMessages(response.messages);
+    scrollDown();
+    continueWith && continueWith();
 }
 
 function getRequest(url, continueWith, continueWithError) {
@@ -459,11 +438,11 @@ function ajax(method, url, data, continueWith, continueWithError) {
     };
     xhr.ontimeout = function () {
         serverAvailable(false, method);
-        ontinueWithError('Server timed out !');
+        ontinueWithError('Server timed out!');
     };
     xhr.onerror = function (e) {
         serverAvailable(false, method);
-        var errMsg = 'Server connection error !\n' +
+        var errMsg = 'Server connection error!\n' +
             '\n' +
             'Check if \n' +
             '- server is active\n' +
@@ -495,15 +474,13 @@ function availableSwitcher(newCondition) {
 }
 
 function unavailableAlert(method) {
-    var error;
     if (method == 'POST') {
-        error = "Message hasn't been sent. Server is unavailable";
+        alert("Message hasn't been sent. Server is unavailable!");
     }
     if (method == 'PUT') {
-        error = "Message hasn't been edited. Server is unavailable";
+        alert("Message hasn't been edited. Server is unavailable!");
     }
     if (method == 'DELETE') {
-        error = "Message hasn't been deleted. Server is unavailable";
+        alert("Message hasn't been deleted. Server is unavailable!");
     }
-    alert(error);
 }

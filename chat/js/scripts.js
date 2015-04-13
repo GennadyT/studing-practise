@@ -262,14 +262,14 @@ function makeToEdit(divMessage, type) {
         message = divMessage.getElementsByClassName('message-item')[0];
         item = document.createElement('textarea');
         item.setAttribute('class', 'message message-edit-text');
-        item.value = message.innerHTML.trim();
+        item.value = message.innerHTML.trim().replace(new RegExp("\\n", 'g'), "\n");
     }
     if (type == 'read') {
         message = divMessage.getElementsByClassName('message-edit-text')[0];
         item = document.createElement('xmp');
         item.setAttribute('class', 'message message-item');
-        text = message.value.trim();
-        item.innerHTML = text;
+        text = message.value.trim().replace(new RegExp("\n", 'g'), "\\n");
+        item.innerHTML = message.value.trim();
     }
     divMessage.replaceChild(item, message);
     item.focus();
@@ -347,6 +347,9 @@ function getHistory(responseText, continueWith) {
 
 function createOrUpdateMessages(messages) {
     var chatBox = document.getElementsByClassName('chat-box')[0];
+    if (!chatState.messageList.length) {
+        chatBox.innerHTML = "";
+    }
     for (var i = 0; i < messages.length; i++) {
         var index = findMessageIndexById(messages[i].id);
         if (index > -1) {
@@ -386,6 +389,8 @@ function putRequest(url, data, continueWith, continueWithError) {
 
 function defaultErrorHandler(message) {
     console.error(message);
+    chatState.token = 'TN11EN';
+    chatState.messageList = [];//this is when is server error; The info on server lost after error
     restoreMessages();
 }
 
@@ -457,7 +462,9 @@ function availableSwitcher(newCondition) {
     chatState.isAvailable = newCondition;
 }
 
+
 function unavailableAlert(method) {
+
     if (method == 'POST') {
         alert("Message hasn't been sent. Server is unavailable!");
     }

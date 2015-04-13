@@ -100,6 +100,7 @@ public class Server implements HttpHandler {
                         System.out.println("Delete " + message.getReadableView());
                         message.delete();
                         modifyHistory.add(message);
+                        break;
                     }
                 }
             }
@@ -123,6 +124,7 @@ public class Server implements HttpHandler {
                         System.out.println("Edit " + message.getReadableView());
                         message.modify(newMessage.getMessageText());
                         modifyHistory.add(message);
+                        break;
                     }
                 }
             }

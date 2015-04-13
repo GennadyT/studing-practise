@@ -18,7 +18,7 @@
     display: inline-block;
     width: 20px;
     height: 20px;
-    background: /*#92D36E*/ #E61610;
+    background: #E61610;
     border-radius: 10px;
     vertical-align: middle;
 }
@@ -99,6 +99,7 @@
     text-align: justify;
     font-style: normal;
     font-size: 18px;
+    word-wrap: break-word;
 }
 .modify {
     font-size: 15px;

@@ -11,7 +11,8 @@ import java.net.InetSocketAddress;
 import java.util.*;
 
 public class Server implements HttpHandler {
-    private Map<String, Message> history = new LinkedHashMap<String, Message>();
+    //private Map<String, Message> messageHistory = new LinkedHashMap<String, Message>();
+    private List<Message> modifyHistory = new ArrayList<Message>();
     private MessageExchange messageExchange = new MessageExchange();
 
     public static void main(String[] args) {
@@ -67,8 +68,8 @@ public class Server implements HttpHandler {
             String token = map.get("token");
             if (token != null && !"".equals(token)) {
                 int index = messageExchange.getIndex(token);
-                List<Message> historyList = new ArrayList<Message>(history.values());
-                return messageExchange.getServerResponse(historyList.subList(index, history.size()), historyList.size());
+                int modifySize = modifyHistory.size();
+                return messageExchange.getServerResponse(modifyHistory.subList(index, modifySize), modifySize);
             } else {
                 return "Token query parameter is absent in url: " + query;
             }
@@ -80,7 +81,8 @@ public class Server implements HttpHandler {
         try {
             Message message = messageExchange.getClientMessage(httpExchange.getRequestBody());
             System.out.println("Get " + message.getReadableView());
-            history.put(message.getID(), message);
+            //messageHistory.put(message.getID(), message);
+            modifyHistory.add(message);
         } catch (ParseException e) {
             System.err.println("Invalid user message: " + httpExchange.getRequestBody() + " " + e.getMessage());
         }
@@ -90,11 +92,16 @@ public class Server implements HttpHandler {
         try {
             Message messageId = messageExchange.getClientMessage(httpExchange.getRequestBody());
             boolean check = false;
-            Message message = history.get(messageId.getID());
-            if (message != null && !message.isDeleted()) {
-                check = true;
-                System.out.println("Delete " + message.getReadableView());
-                message.delete();
+            //Message message = messageHistory.get(messageId.getID());
+            for (Message message : modifyHistory) {
+                if (messageId.getID().equals(message.getID())) {
+                    if (!message.isDeleted()) {
+                        check = true;
+                        System.out.println("Delete " + message.getReadableView());
+                        message.delete();
+                        modifyHistory.add(message);
+                    }
+                }
             }
             if (!check) {
                 System.err.println("Message with id : " + messageId.getID() + " doesn't exist or was deleted");
@@ -108,14 +115,19 @@ public class Server implements HttpHandler {
         try {
             Message newMessage = messageExchange.getClientMessage(httpExchange.getRequestBody());
             boolean check = false;
-            Message message = history.get(newMessage.getID());
-            if (message != null && !message.isDeleted()) {
-                check = true;
-                System.out.println("Edit " + message.getReadableView());
-                message.modify(newMessage.getMessageText());
+            //Message message = messageHistory.get(newMessage.getID());
+            for (Message message : modifyHistory) {
+                if (newMessage.getID().equals(message.getID())) {
+                    if (!message.isDeleted() && !newMessage.getMessageText().equals(message.getMessageText())) {
+                        check = true;
+                        System.out.println("Edit " + message.getReadableView());
+                        message.modify(newMessage.getMessageText());
+                        modifyHistory.add(message);
+                    }
+                }
             }
             if (!check) {
-                System.err.println("Message with id : " + newMessage.getID() + " doesn't exist or was deleted");
+                System.err.println("Message with id : " + newMessage.getID() + " doesn't exist, was deleted or not modified");
             }
         } catch (ParseException e) {
             System.err.println("Invalid user message: " + httpExchange.getRequestBody() + " " + e.getMessage());

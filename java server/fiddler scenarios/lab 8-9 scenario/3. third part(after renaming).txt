@@ -1,0 +1,198 @@
+POST http://localhost:999/chat HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+Content-Length: 93
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Accept-Encoding: gzip, deflate
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+{"id":"226425196426","senderName":"Shyshpanchik","messageText":"What are you doing tonight?"}
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:07:09 GMT
+Transfer-encoding: chunked
+Access-control-allow-origin: *
+
+0
+
+
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN67EN HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:07:09 GMT
+Access-control-allow-origin: *
+Content-length: 212
+
+{"messages":[{"id":"226425196426", "senderName":"Shyshpanchik", "messageText":"What are you doing tonight?", "sendDate":"13.04.2015, 21:07:09", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN75EN"}
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN67EN HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:07:10 GMT
+Access-control-allow-origin: *
+Content-length: 212
+
+{"messages":[{"id":"226425196426", "senderName":"Shyshpanchik", "messageText":"What are you doing tonight?", "sendDate":"13.04.2015, 21:07:09", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN75EN"}
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN75EN HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:07:10 GMT
+Access-control-allow-origin: *
+Content-length: 32
+
+{"messages":[],"token":"TN75EN"}
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN75EN HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:07:11 GMT
+Access-control-allow-origin: *
+Content-length: 32
+
+{"messages":[],"token":"TN75EN"}
+
+------------------------------------------------------------------
+
+POST http://localhost:999/chat HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+Content-Length: 94
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Accept-Encoding: gzip, deflate
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+{"id":"757297147850","senderName":"Turtle Beach","messageText":"Hell knows, any suggestions?"}
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:07:30 GMT
+Transfer-encoding: chunked
+Access-control-allow-origin: *
+
+0
+
+
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN75EN HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:07:31 GMT
+Access-control-allow-origin: *
+Content-length: 213
+
+{"messages":[{"id":"757297147850", "senderName":"Turtle Beach", "messageText":"Hell knows, any suggestions?", "sendDate":"13.04.2015, 21:07:30", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN83EN"}
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN75EN HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:07:31 GMT
+Access-control-allow-origin: *
+Content-length: 213
+
+{"messages":[{"id":"757297147850", "senderName":"Turtle Beach", "messageText":"Hell knows, any suggestions?", "sendDate":"13.04.2015, 21:07:30", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN83EN"}
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN83EN HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:07:32 GMT
+Access-control-allow-origin: *
+Content-length: 32
+
+{"messages":[],"token":"TN83EN"}
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN83EN HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:07:32 GMT
+Access-control-allow-origin: *
+Content-length: 32
+
+{"messages":[],"token":"TN83EN"}
+
+------------------------------------------------------------------
+

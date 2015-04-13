@@ -1,0 +1,16 @@
+GET http://localhost:999/chat?token=TN11EN HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:15:04 GMT
+Access-control-allow-origin: *
+Content-length: 1525
+
+{"messages":[{"id":"313671774195", "senderName":"User 1", "messageText":"Hi!", "sendDate":"13.04.2015, 21:04:42", "modifyDate":"not modified", "isDeleted":"false"},{"id":"135220335013", "senderName":"User 2", "messageText":"Hi! What's up?", "sendDate":"13.04.2015, 21:04:55", "modifyDate":"13.04.2015, 21:06:03", "isDeleted":"false"},{"id":"39408199936", "senderName":"User 1", "messageText":"I'm fine, and you?", "sendDate":"13.04.2015, 21:05:41", "modifyDate":"not modified", "isDeleted":"false"},{"id":"168800277124", "senderName":"User 2", "messageText":"deleted", "sendDate":"13.04.2015, 21:05:51", "modifyDate":"not modified", "isDeleted":"true"},{"id":"135220335013", "senderName":"User 2", "messageText":"Hi! What's up?", "sendDate":"13.04.2015, 21:04:55", "modifyDate":"13.04.2015, 21:06:03", "isDeleted":"false"},{"id":"168800277124", "senderName":"User 2", "messageText":"deleted", "sendDate":"13.04.2015, 21:05:51", "modifyDate":"not modified", "isDeleted":"true"},{"id":"687390955616", "senderName":"User 2", "messageText":"Fine too, cockatoo!", "sendDate":"13.04.2015, 21:06:21", "modifyDate":"not modified", "isDeleted":"false"},{"id":"226425196426", "senderName":"Shyshpanchik", "messageText":"What are you doing tonight?", "sendDate":"13.04.2015, 21:07:09", "modifyDate":"not modified", "isDeleted":"false"},{"id":"757297147850", "senderName":"Turtle Beach", "messageText":"Hell knows, any suggestions?", "sendDate":"13.04.2015, 21:07:30", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN83EN"}

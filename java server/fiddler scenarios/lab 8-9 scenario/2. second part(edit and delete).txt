@@ -1,0 +1,345 @@
+OPTIONS http://localhost:999/chat HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+Access-Control-Request-Method: PUT
+Origin: null
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Access-Control-Request-Headers: content-type
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:06:03 GMT
+Access-control-allow-methods: GET, POST, OPTIONS, DELETE, PUT
+Transfer-encoding: chunked
+Access-control-allow-origin: *
+
+0
+
+
+
+------------------------------------------------------------------
+
+PUT http://localhost:999/chat HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+Content-Length: 68
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+{"id":"135220335013","senderName":"","messageText":"Hi! What's up?"}
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:06:03 GMT
+Transfer-encoding: chunked
+Access-control-allow-origin: *
+
+0
+
+
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN43EN HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:06:04 GMT
+Access-control-allow-origin: *
+Content-length: 201
+
+{"messages":[{"id":"135220335013", "senderName":"User 2", "messageText":"Hi! What's up?", "sendDate":"13.04.2015, 21:04:55", "modifyDate":"13.04.2015, 21:06:03", "isDeleted":"false"}],"token":"TN51EN"}
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN43EN HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:06:04 GMT
+Access-control-allow-origin: *
+Content-length: 201
+
+{"messages":[{"id":"135220335013", "senderName":"User 2", "messageText":"Hi! What's up?", "sendDate":"13.04.2015, 21:04:55", "modifyDate":"13.04.2015, 21:06:03", "isDeleted":"false"}],"token":"TN51EN"}
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN51EN HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:06:05 GMT
+Access-control-allow-origin: *
+Content-length: 32
+
+{"messages":[],"token":"TN51EN"}
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN51EN HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:06:05 GMT
+Access-control-allow-origin: *
+Content-length: 32
+
+{"messages":[],"token":"TN51EN"}
+
+------------------------------------------------------------------
+
+OPTIONS http://localhost:999/chat HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+Access-Control-Request-Method: DELETE
+Origin: null
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Access-Control-Request-Headers: content-type
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:06:11 GMT
+Access-control-allow-methods: GET, POST, OPTIONS, DELETE, PUT
+Transfer-encoding: chunked
+Access-control-allow-origin: *
+
+0
+
+
+
+------------------------------------------------------------------
+
+DELETE http://localhost:999/chat HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+Content-Length: 54
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+{"id":"168800277124","senderName":"","messageText":""}
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:06:11 GMT
+Transfer-encoding: chunked
+Access-control-allow-origin: *
+
+0
+
+
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN51EN HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:06:11 GMT
+Access-control-allow-origin: *
+Content-length: 185
+
+{"messages":[{"id":"168800277124", "senderName":"User 2", "messageText":"deleted", "sendDate":"13.04.2015, 21:05:51", "modifyDate":"not modified", "isDeleted":"true"}],"token":"TN59EN"}
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN51EN HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:06:11 GMT
+Access-control-allow-origin: *
+Content-length: 185
+
+{"messages":[{"id":"168800277124", "senderName":"User 2", "messageText":"deleted", "sendDate":"13.04.2015, 21:05:51", "modifyDate":"not modified", "isDeleted":"true"}],"token":"TN59EN"}
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN59EN HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:06:12 GMT
+Access-control-allow-origin: *
+Content-length: 32
+
+{"messages":[],"token":"TN59EN"}
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN59EN HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:06:12 GMT
+Access-control-allow-origin: *
+Content-length: 32
+
+{"messages":[],"token":"TN59EN"}
+
+------------------------------------------------------------------
+
+POST http://localhost:999/chat HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+Content-Length: 79
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Accept-Encoding: gzip, deflate
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+{"id":"687390955616","senderName":"User 2","messageText":"Fine too, cockatoo!"}
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:06:21 GMT
+Transfer-encoding: chunked
+Access-control-allow-origin: *
+
+0
+
+
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN59EN HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:06:21 GMT
+Access-control-allow-origin: *
+Content-length: 198
+
+{"messages":[{"id":"687390955616", "senderName":"User 2", "messageText":"Fine too, cockatoo!", "sendDate":"13.04.2015, 21:06:21", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN67EN"}
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN59EN HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:06:21 GMT
+Access-control-allow-origin: *
+Content-length: 198
+
+{"messages":[{"id":"687390955616", "senderName":"User 2", "messageText":"Fine too, cockatoo!", "sendDate":"13.04.2015, 21:06:21", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN67EN"}
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN67EN HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:06:22 GMT
+Access-control-allow-origin: *
+Content-length: 32
+
+{"messages":[],"token":"TN67EN"}
+
+------------------------------------------------------------------
+
+GET http://localhost:999/chat?token=TN67EN HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
+Origin: null
+Accept: */*
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+
+
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 18:06:22 GMT
+Access-control-allow-origin: *
+Content-length: 32
+
+{"messages":[],"token":"TN67EN"}
+
+------------------------------------------------------------------
+

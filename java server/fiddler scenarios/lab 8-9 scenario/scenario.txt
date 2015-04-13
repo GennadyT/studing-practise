@@ -1,0 +1,43 @@
+ќсновной сценарий:
+
+  запущенному серверу подключаютс€ 2 клиента Уuser 1Ф и Уuser 2Ф и начинают разговор. »стори€ сообщений выгл€дит примерно таким образом:
+
+УUser 1Ф:УHi!Ф
+
+УUser 2Ф:УWhatТs up?Ф
+
+УUser 1Ф: УIТm fine, and you?Ф
+
+УUser 2Ф УMe tooФ
+
+ƒалее УUser 2Ф редактирует сообщение УWhatТs up?Ф и замен€ет его на УHi! WhatТs up?Ф ѕосле чего удал€ет своЄ последнее сообщение УMe tooФ и пишет еще одно: 
+УFine too, cockatoo!Ф. »стори€ сообщений чата выгл€дит теперь таким образом:
+
+УUser 1Ф:УHi!Ф
+
+УUser 2Ф:УHi! WhatТs up?Ф
+
+УUser 1Ф: УIТm fine, and you?Ф
+
+УUser 2Ф: УФ 
+
+УUser 2Ф:УFine too, cockatoo!Ф
+
+УUser 1Ф измен€ет им€ на УShyshpanchikФ и пишет новое сообщение: УWhat are you going tonight ?Ф  УUser 2Ф измен€ет им€ на УTurtle BeachФ и пишет сообщение: 
+УHell knows, any suggestions ?Ф
+
+»стори€ сообщений выгл€дит теперь следующим образом:
+
+УUser 1Ф:УHi!Ф
+
+УUser 2Ф:УHi! WhatТs up?Ф
+
+УUser 1Ф: УIТm fine, and you?Ф
+
+УUser 2Ф: УФ 
+
+УUser 2Ф:УFine too, cockatoo!Ф
+
+УShyshpanchikФ:УWhat are you going tonight ?Ф
+
+УTurtle BeachФ:УHell knows, any suggestions ?Ф

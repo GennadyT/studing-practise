@@ -208,6 +208,8 @@ function setDelete(divMessage, message) {
 
 function setModify(divMessage, message) {
     var modify = divMessage.getElementsByClassName('modify')[0];
+    var messageItem = divMessage.getElementsByClassName('message message-item')[0];
+    messageItem.innerHTML = message.messageText;
     if (modify === undefined) {
         modify = document.createElement('p');
         modify.setAttribute('class', 'modify');
@@ -260,8 +262,7 @@ function makeToEdit(divMessage, type) {
         message = divMessage.getElementsByClassName('message-item')[0];
         item = document.createElement('textarea');
         item.setAttribute('class', 'message message-edit-text');
-        text = message.innerHTML.trim();
-        item.value = text;
+        item.value = message.innerHTML.trim();
     }
     if (type == 'read') {
         message = divMessage.getElementsByClassName('message-edit-text')[0];
@@ -349,6 +350,7 @@ function createOrUpdateMessages(messages) {
     for (var i = 0; i < messages.length; i++) {
         var index = findMessageIndexById(messages[i].id);
         if (index > -1) {
+            chatState.messageList[index] = messages[i];
             updateMessage(chatBox.children[index], messages[i]);
         }
         else {

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Server implements HttpHandler {
-    private List<HistoryElement> requestsHistory = new ArrayList</*JSONObject*/>();
+    private List<HistoryElement> requestsHistory = new ArrayList<HistoryElement>();
     private MessageExchange messageExchange = new MessageExchange();
 
     public static void main(String[] args) {

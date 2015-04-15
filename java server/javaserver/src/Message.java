@@ -2,7 +2,7 @@
  * Created by Gennady Trubach on 28.03.2015.
  * FAMCS 2d course 5th group
  */
-public class Message implements Cloneable {
+public class Message {
     private final String ID;
     private String senderName;
     private String messageText;
@@ -69,10 +69,10 @@ public class Message implements Cloneable {
     public String getReadableView() {
         StringBuilder sb = new StringBuilder("Message from ");
         sb.append(senderName)
-        .append(" in ")
-        .append(getSendDate())
-        .append(" : ")
-        .append(getMessageText());
+                .append(" in ")
+                .append(getSendDate())
+                .append(" : ")
+                .append(getMessageText());
         return sb.toString();
     }
 }

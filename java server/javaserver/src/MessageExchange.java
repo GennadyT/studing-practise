@@ -20,7 +20,7 @@ public class MessageExchange {
         return (Integer.valueOf(token.substring(2, token.length() - 2)) - 11) / 8;
     }
 
-    public String getServerResponse(List</*JSONObject*/HistoryElement> messages, int historySize) {
+    public String getServerResponse(List<HistoryElement> messages, int historySize) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("messages", messages);
         jsonObject.put("token", getToken(historySize));

@@ -69,10 +69,10 @@ public class Message {
     public String getReadableView() {
         StringBuilder sb = new StringBuilder("Message from ");
         sb.append(senderName)
-                .append(" in ")
-                .append(getSendDate())
-                .append(" : ")
-                .append(getMessageText());
+        .append(" in ")
+        .append(getSendDate())
+        .append(" : ")
+        .append(getMessageText());
         return sb.toString();
     }
 }

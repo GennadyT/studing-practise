@@ -9,9 +9,9 @@ Accept: */*
 Accept-Encoding: gzip, deflate
 Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
-{"id":"313671774195","senderName":"User 1","messageText":"Hi!"}
+{"id":"622898217648","senderName":"User 1","messageText":"Hi!"}
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:04:42 GMT
+Date: Wed, 15 Apr 2015 16:04:07 GMT
 Transfer-encoding: chunked
 Access-control-allow-origin: *
 
@@ -32,11 +32,11 @@ Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
 
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:04:42 GMT
+Date: Wed, 15 Apr 2015 16:04:07 GMT
 Access-control-allow-origin: *
 Content-length: 182
 
-{"messages":[{"id":"313671774195", "senderName":"User 1", "messageText":"Hi!", "sendDate":"13.04.2015, 21:04:42", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN19EN"}
+{"messages":[{"id":"622898217648", "senderName":"User 1", "messageText":"Hi!", "sendDate":"15.04.2015, 19:04:07", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN19EN"}
 
 ------------------------------------------------------------------
 
@@ -51,11 +51,11 @@ Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
 
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:04:43 GMT
+Date: Wed, 15 Apr 2015 16:04:08 GMT
 Access-control-allow-origin: *
 Content-length: 182
 
-{"messages":[{"id":"313671774195", "senderName":"User 1", "messageText":"Hi!", "sendDate":"13.04.2015, 21:04:42", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN19EN"}
+{"messages":[{"id":"622898217648", "senderName":"User 1", "messageText":"Hi!", "sendDate":"15.04.2015, 19:04:07", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN19EN"}
 
 ------------------------------------------------------------------
 
@@ -70,26 +70,7 @@ Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
 
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:04:44 GMT
-Access-control-allow-origin: *
-Content-length: 32
-
-{"messages":[],"token":"TN19EN"}
-
-------------------------------------------------------------------
-
-GET http://localhost:999/chat?token=TN19EN HTTP/1.1
-Host: localhost:999
-Connection: keep-alive
-User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
-Origin: null
-Accept: */*
-Accept-Encoding: gzip, deflate, sdch
-Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
-
-
-HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:04:44 GMT
+Date: Wed, 15 Apr 2015 16:04:09 GMT
 Access-control-allow-origin: *
 Content-length: 32
 
@@ -108,9 +89,9 @@ Accept: */*
 Accept-Encoding: gzip, deflate
 Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
-{"id":"135220335013","senderName":"User 2","messageText":"What's up?"}
+{"id":"364403026149","senderName":"User 2","messageText":"What's up?"}
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:04:55 GMT
+Date: Wed, 15 Apr 2015 16:04:15 GMT
 Transfer-encoding: chunked
 Access-control-allow-origin: *
 
@@ -131,11 +112,11 @@ Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
 
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:04:55 GMT
+Date: Wed, 15 Apr 2015 16:04:16 GMT
 Access-control-allow-origin: *
 Content-length: 189
 
-{"messages":[{"id":"135220335013", "senderName":"User 2", "messageText":"What's up?", "sendDate":"13.04.2015, 21:04:55", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN27EN"}
+{"messages":[{"id":"364403026149", "senderName":"User 2", "messageText":"What's up?", "sendDate":"15.04.2015, 19:04:15", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN27EN"}
 
 ------------------------------------------------------------------
 
@@ -150,11 +131,11 @@ Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
 
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:04:56 GMT
+Date: Wed, 15 Apr 2015 16:04:16 GMT
 Access-control-allow-origin: *
 Content-length: 189
 
-{"messages":[{"id":"135220335013", "senderName":"User 2", "messageText":"What's up?", "sendDate":"13.04.2015, 21:04:55", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN27EN"}
+{"messages":[{"id":"364403026149", "senderName":"User 2", "messageText":"What's up?", "sendDate":"15.04.2015, 19:04:15", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN27EN"}
 
 ------------------------------------------------------------------
 
@@ -169,26 +150,7 @@ Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
 
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:04:56 GMT
-Access-control-allow-origin: *
-Content-length: 32
-
-{"messages":[],"token":"TN27EN"}
-
-------------------------------------------------------------------
-
-GET http://localhost:999/chat?token=TN27EN HTTP/1.1
-Host: localhost:999
-Connection: keep-alive
-User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
-Origin: null
-Accept: */*
-Accept-Encoding: gzip, deflate, sdch
-Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
-
-
-HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:04:57 GMT
+Date: Wed, 15 Apr 2015 16:04:17 GMT
 Access-control-allow-origin: *
 Content-length: 32
 
@@ -199,7 +161,7 @@ Content-length: 32
 POST http://localhost:999/chat HTTP/1.1
 Host: localhost:999
 Connection: keep-alive
-Content-Length: 77
+Content-Length: 76
 User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
 Origin: null
 Content-Type: text/plain;charset=UTF-8
@@ -207,9 +169,9 @@ Accept: */*
 Accept-Encoding: gzip, deflate
 Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
-{"id":"39408199936","senderName":"User 1","messageText":"I'm fine, and you?"}
+{"id":"3164481546","senderName":"User 1","messageText":"I'm fine, and you?"}
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:05:41 GMT
+Date: Wed, 15 Apr 2015 16:04:27 GMT
 Transfer-encoding: chunked
 Access-control-allow-origin: *
 
@@ -230,11 +192,11 @@ Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
 
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:05:42 GMT
+Date: Wed, 15 Apr 2015 16:04:28 GMT
 Access-control-allow-origin: *
-Content-length: 196
+Content-length: 195
 
-{"messages":[{"id":"39408199936", "senderName":"User 1", "messageText":"I'm fine, and you?", "sendDate":"13.04.2015, 21:05:41", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN35EN"}
+{"messages":[{"id":"3164481546", "senderName":"User 1", "messageText":"I'm fine, and you?", "sendDate":"15.04.2015, 19:04:27", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN35EN"}
 
 ------------------------------------------------------------------
 
@@ -249,11 +211,11 @@ Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
 
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:05:42 GMT
+Date: Wed, 15 Apr 2015 16:04:28 GMT
 Access-control-allow-origin: *
-Content-length: 196
+Content-length: 195
 
-{"messages":[{"id":"39408199936", "senderName":"User 1", "messageText":"I'm fine, and you?", "sendDate":"13.04.2015, 21:05:41", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN35EN"}
+{"messages":[{"id":"3164481546", "senderName":"User 1", "messageText":"I'm fine, and you?", "sendDate":"15.04.2015, 19:04:27", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN35EN"}
 
 ------------------------------------------------------------------
 
@@ -268,26 +230,7 @@ Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
 
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:05:43 GMT
-Access-control-allow-origin: *
-Content-length: 32
-
-{"messages":[],"token":"TN35EN"}
-
-------------------------------------------------------------------
-
-GET http://localhost:999/chat?token=TN35EN HTTP/1.1
-Host: localhost:999
-Connection: keep-alive
-User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
-Origin: null
-Accept: */*
-Accept-Encoding: gzip, deflate, sdch
-Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
-
-
-HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:05:43 GMT
+Date: Wed, 15 Apr 2015 16:04:29 GMT
 Access-control-allow-origin: *
 Content-length: 32
 
@@ -306,9 +249,9 @@ Accept: */*
 Accept-Encoding: gzip, deflate
 Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
-{"id":"168800277124","senderName":"User 2","messageText":"Me too"}
+{"id":"544794009182","senderName":"User 2","messageText":"Me too"}
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:05:51 GMT
+Date: Wed, 15 Apr 2015 16:04:32 GMT
 Transfer-encoding: chunked
 Access-control-allow-origin: *
 
@@ -329,11 +272,11 @@ Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
 
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:05:52 GMT
+Date: Wed, 15 Apr 2015 16:04:32 GMT
 Access-control-allow-origin: *
 Content-length: 185
 
-{"messages":[{"id":"168800277124", "senderName":"User 2", "messageText":"Me too", "sendDate":"13.04.2015, 21:05:51", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN43EN"}
+{"messages":[{"id":"544794009182", "senderName":"User 2", "messageText":"Me too", "sendDate":"15.04.2015, 19:04:32", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN43EN"}
 
 ------------------------------------------------------------------
 
@@ -348,11 +291,11 @@ Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
 
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:05:52 GMT
+Date: Wed, 15 Apr 2015 16:04:33 GMT
 Access-control-allow-origin: *
 Content-length: 185
 
-{"messages":[{"id":"168800277124", "senderName":"User 2", "messageText":"Me too", "sendDate":"13.04.2015, 21:05:51", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN43EN"}
+{"messages":[{"id":"544794009182", "senderName":"User 2", "messageText":"Me too", "sendDate":"15.04.2015, 19:04:32", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN43EN"}
 
 ------------------------------------------------------------------
 
@@ -367,26 +310,7 @@ Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
 
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:05:53 GMT
-Access-control-allow-origin: *
-Content-length: 32
-
-{"messages":[],"token":"TN43EN"}
-
-------------------------------------------------------------------
-
-GET http://localhost:999/chat?token=TN43EN HTTP/1.1
-Host: localhost:999
-Connection: keep-alive
-User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
-Origin: null
-Accept: */*
-Accept-Encoding: gzip, deflate, sdch
-Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
-
-
-HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:05:53 GMT
+Date: Wed, 15 Apr 2015 16:04:33 GMT
 Access-control-allow-origin: *
 Content-length: 32
 

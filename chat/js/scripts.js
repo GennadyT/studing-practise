@@ -266,6 +266,9 @@ function makeToEdit(divMessage, type) {
     }
     if (type == 'read') {
         message = divMessage.getElementsByClassName('message-edit-text')[0];
+        if(inputChecker(message.value) == false) {
+            return "";
+        }
         item = document.createElement('xmp');
         item.setAttribute('class', 'message message-item');
         text = message.value.trim().replace(new RegExp("\n", 'g'), "\\n");
@@ -300,13 +303,15 @@ function onMessageEditClick(tools) {
 function onMessageConfirmClick(tools, continueWith) {
     var divMessage = tools.parentElement;
     var text = makeToEdit(divMessage, 'read');
-    tools.removeChild(tools.lastChild);
-    tools.appendChild(toolsButtonsChange('edit'));
-    var id = divMessage.attributes['id'].value;
-    var editMessage = theMessage("", text, id);
-    putRequest(chatState.chatUrl, JSON.stringify(editMessage), function () {
-        continueWith && continueWith();
-    });
+    if (text != "") {
+        tools.removeChild(tools.lastChild);
+        tools.appendChild(toolsButtonsChange('edit'));
+        var id = divMessage.attributes['id'].value;
+        var editMessage = theMessage("", text, id);
+        putRequest(chatState.chatUrl, JSON.stringify(editMessage), function () {
+            continueWith && continueWith();
+        });
+    }
 }
 
 function onMessageDelete(divMessage, continueWith) {
@@ -348,7 +353,7 @@ function getHistory(responseText, continueWith) {
 function createOrUpdateMessages(messages) {
     var chatBox = document.getElementsByClassName('chat-box')[0];
     if (!chatState.messageList.length) {
-        chatBox.innerHTML = "";
+        chatBox.innerHTML = "";//this is when is server error; The information on server lost after error!
     }
     for (var i = 0; i < messages.length; i++) {
         var index = findMessageIndexById(messages[i].id);
@@ -389,8 +394,8 @@ function putRequest(url, data, continueWith, continueWithError) {
 
 function defaultErrorHandler(message) {
     console.error(message);
-    chatState.token = 'TN11EN';
-    chatState.messageList = [];//this is when is server error; The info on server lost after error
+    chatState.token = 'TN11EN';//this is when is server error; The information on server lost after error!
+    chatState.messageList = [];//this is when is server error; The information on server lost after error!
     restoreMessages();
 }
 

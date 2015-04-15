@@ -8,11 +8,13 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Server implements HttpHandler {
-    //private Map<String, Message> messageHistory = new LinkedHashMap<String, Message>();
-    private List<Message> modifyHistory = new ArrayList<Message>();
+    private List<HistoryElement> requestsHistory = new ArrayList</*JSONObject*/>();
     private MessageExchange messageExchange = new MessageExchange();
 
     public static void main(String[] args) {
@@ -68,8 +70,8 @@ public class Server implements HttpHandler {
             String token = map.get("token");
             if (token != null && !"".equals(token)) {
                 int index = messageExchange.getIndex(token);
-                int modifySize = modifyHistory.size();
-                return messageExchange.getServerResponse(modifyHistory.subList(index, modifySize), modifySize);
+                int historySize = requestsHistory.size();
+                return messageExchange.getServerResponse(requestsHistory.subList(index, historySize), historySize);
             } else {
                 return "Token query parameter is absent in url: " + query;
             }
@@ -81,8 +83,8 @@ public class Server implements HttpHandler {
         try {
             Message message = messageExchange.getClientMessage(httpExchange.getRequestBody());
             System.out.println("Get " + message.getReadableView());
-            //messageHistory.put(message.getID(), message);
-            modifyHistory.add(message);
+            HistoryElement requestToStorage = new HistoryElement(httpExchange.getRequestMethod(), message);
+            requestsHistory.add(requestToStorage);
         } catch (ParseException e) {
             System.err.println("Invalid user message: " + httpExchange.getRequestBody() + " " + e.getMessage());
         }
@@ -92,14 +94,16 @@ public class Server implements HttpHandler {
         try {
             Message messageId = messageExchange.getClientMessage(httpExchange.getRequestBody());
             boolean check = false;
-            //Message message = messageHistory.get(messageId.getID());
-            for (Message message : modifyHistory) {
-                if (messageId.getID().equals(message.getID())) {
-                    if (!message.isDeleted()) {
+            for (HistoryElement history : requestsHistory) {
+                Message historyMessage = history.getMessage();
+                if (messageId.getID().equals(historyMessage.getID())) {
+                    if (!historyMessage.isDeleted()) {
                         check = true;
+                        Message message = new Message(historyMessage);
                         System.out.println("Delete " + message.getReadableView());
                         message.delete();
-                        modifyHistory.add(message);
+                        HistoryElement requestToStorage = new HistoryElement(httpExchange.getRequestMethod(), message);
+                        requestsHistory.add(requestToStorage);
                         break;
                     }
                 }
@@ -114,22 +118,24 @@ public class Server implements HttpHandler {
 
     private void doPut(HttpExchange httpExchange) {
         try {
-            Message newMessage = messageExchange.getClientMessage(httpExchange.getRequestBody());
+            Message editedMessage = messageExchange.getClientMessage(httpExchange.getRequestBody());
             boolean check = false;
-            //Message message = messageHistory.get(newMessage.getID());
-            for (Message message : modifyHistory) {
-                if (newMessage.getID().equals(message.getID())) {
-                    if (!message.isDeleted() && !newMessage.getMessageText().equals(message.getMessageText())) {
+            for (HistoryElement history : requestsHistory) {
+                Message historyMessage = history.getMessage();
+                if (editedMessage.getID().equals(historyMessage.getID())) {
+                    if (!historyMessage.isDeleted() && !editedMessage.getMessageText().equals(historyMessage.getMessageText())) {
                         check = true;
+                        Message message = new Message(historyMessage);
                         System.out.println("Edit " + message.getReadableView());
-                        message.modify(newMessage.getMessageText());
-                        modifyHistory.add(message);
+                        message.modify(editedMessage.getMessageText());
+                        HistoryElement requestToStorage = new HistoryElement(httpExchange.getRequestMethod(), message);
+                        requestsHistory.add(requestToStorage);
                         break;
                     }
                 }
             }
             if (!check) {
-                System.err.println("Message with id : " + newMessage.getID() + " doesn't exist, was deleted or not modified");
+                System.err.println("Message with id : " + editedMessage.getID() + " doesn't exist, was deleted or not modified");
             }
         } catch (ParseException e) {
             System.err.println("Invalid user message: " + httpExchange.getRequestBody() + " " + e.getMessage());

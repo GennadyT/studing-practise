@@ -11,7 +11,7 @@ Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
 
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:06:03 GMT
+Date: Wed, 15 Apr 2015 16:04:38 GMT
 Access-control-allow-methods: GET, POST, OPTIONS, DELETE, PUT
 Transfer-encoding: chunked
 Access-control-allow-origin: *
@@ -33,9 +33,9 @@ Accept: */*
 Accept-Encoding: gzip, deflate, sdch
 Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
-{"id":"135220335013","senderName":"","messageText":"Hi! What's up?"}
+{"id":"364403026149","senderName":"","messageText":"Hi! What's up?"}
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:06:03 GMT
+Date: Wed, 15 Apr 2015 16:04:38 GMT
 Transfer-encoding: chunked
 Access-control-allow-origin: *
 
@@ -56,11 +56,11 @@ Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
 
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:06:04 GMT
+Date: Wed, 15 Apr 2015 16:04:39 GMT
 Access-control-allow-origin: *
 Content-length: 201
 
-{"messages":[{"id":"135220335013", "senderName":"User 2", "messageText":"Hi! What's up?", "sendDate":"13.04.2015, 21:04:55", "modifyDate":"13.04.2015, 21:06:03", "isDeleted":"false"}],"token":"TN51EN"}
+{"messages":[{"id":"364403026149", "senderName":"User 2", "messageText":"Hi! What's up?", "sendDate":"15.04.2015, 19:04:15", "modifyDate":"15.04.2015, 19:04:38", "isDeleted":"false"}],"token":"TN51EN"}
 
 ------------------------------------------------------------------
 
@@ -75,11 +75,11 @@ Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
 
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:06:04 GMT
+Date: Wed, 15 Apr 2015 16:04:39 GMT
 Access-control-allow-origin: *
 Content-length: 201
 
-{"messages":[{"id":"135220335013", "senderName":"User 2", "messageText":"Hi! What's up?", "sendDate":"13.04.2015, 21:04:55", "modifyDate":"13.04.2015, 21:06:03", "isDeleted":"false"}],"token":"TN51EN"}
+{"messages":[{"id":"364403026149", "senderName":"User 2", "messageText":"Hi! What's up?", "sendDate":"15.04.2015, 19:04:15", "modifyDate":"15.04.2015, 19:04:38", "isDeleted":"false"}],"token":"TN51EN"}
 
 ------------------------------------------------------------------
 
@@ -94,26 +94,7 @@ Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
 
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:06:05 GMT
-Access-control-allow-origin: *
-Content-length: 32
-
-{"messages":[],"token":"TN51EN"}
-
-------------------------------------------------------------------
-
-GET http://localhost:999/chat?token=TN51EN HTTP/1.1
-Host: localhost:999
-Connection: keep-alive
-User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
-Origin: null
-Accept: */*
-Accept-Encoding: gzip, deflate, sdch
-Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
-
-
-HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:06:05 GMT
+Date: Wed, 15 Apr 2015 16:04:40 GMT
 Access-control-allow-origin: *
 Content-length: 32
 
@@ -134,7 +115,7 @@ Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
 
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:06:11 GMT
+Date: Wed, 15 Apr 2015 16:04:46 GMT
 Access-control-allow-methods: GET, POST, OPTIONS, DELETE, PUT
 Transfer-encoding: chunked
 Access-control-allow-origin: *
@@ -156,9 +137,9 @@ Accept: */*
 Accept-Encoding: gzip, deflate, sdch
 Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
-{"id":"168800277124","senderName":"","messageText":""}
+{"id":"544794009182","senderName":"","messageText":""}
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:06:11 GMT
+Date: Wed, 15 Apr 2015 16:04:46 GMT
 Transfer-encoding: chunked
 Access-control-allow-origin: *
 
@@ -179,11 +160,11 @@ Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
 
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:06:11 GMT
+Date: Wed, 15 Apr 2015 16:04:46 GMT
 Access-control-allow-origin: *
 Content-length: 185
 
-{"messages":[{"id":"168800277124", "senderName":"User 2", "messageText":"deleted", "sendDate":"13.04.2015, 21:05:51", "modifyDate":"not modified", "isDeleted":"true"}],"token":"TN59EN"}
+{"messages":[{"id":"544794009182", "senderName":"User 2", "messageText":"deleted", "sendDate":"15.04.2015, 19:04:32", "modifyDate":"not modified", "isDeleted":"true"}],"token":"TN59EN"}
 
 ------------------------------------------------------------------
 
@@ -198,11 +179,11 @@ Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
 
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:06:11 GMT
+Date: Wed, 15 Apr 2015 16:04:47 GMT
 Access-control-allow-origin: *
 Content-length: 185
 
-{"messages":[{"id":"168800277124", "senderName":"User 2", "messageText":"deleted", "sendDate":"13.04.2015, 21:05:51", "modifyDate":"not modified", "isDeleted":"true"}],"token":"TN59EN"}
+{"messages":[{"id":"544794009182", "senderName":"User 2", "messageText":"deleted", "sendDate":"15.04.2015, 19:04:32", "modifyDate":"not modified", "isDeleted":"true"}],"token":"TN59EN"}
 
 ------------------------------------------------------------------
 
@@ -217,26 +198,7 @@ Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
 
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:06:12 GMT
-Access-control-allow-origin: *
-Content-length: 32
-
-{"messages":[],"token":"TN59EN"}
-
-------------------------------------------------------------------
-
-GET http://localhost:999/chat?token=TN59EN HTTP/1.1
-Host: localhost:999
-Connection: keep-alive
-User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
-Origin: null
-Accept: */*
-Accept-Encoding: gzip, deflate, sdch
-Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
-
-
-HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:06:12 GMT
+Date: Wed, 15 Apr 2015 16:04:47 GMT
 Access-control-allow-origin: *
 Content-length: 32
 
@@ -255,9 +217,9 @@ Accept: */*
 Accept-Encoding: gzip, deflate
 Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
-{"id":"687390955616","senderName":"User 2","messageText":"Fine too, cockatoo!"}
+{"id":"338196775790","senderName":"User 2","messageText":"Fine too, cockatoo!"}
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:06:21 GMT
+Date: Wed, 15 Apr 2015 16:05:03 GMT
 Transfer-encoding: chunked
 Access-control-allow-origin: *
 
@@ -278,11 +240,11 @@ Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
 
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:06:21 GMT
+Date: Wed, 15 Apr 2015 16:05:03 GMT
 Access-control-allow-origin: *
 Content-length: 198
 
-{"messages":[{"id":"687390955616", "senderName":"User 2", "messageText":"Fine too, cockatoo!", "sendDate":"13.04.2015, 21:06:21", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN67EN"}
+{"messages":[{"id":"338196775790", "senderName":"User 2", "messageText":"Fine too, cockatoo!", "sendDate":"15.04.2015, 19:05:03", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN67EN"}
 
 ------------------------------------------------------------------
 
@@ -297,11 +259,11 @@ Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
 
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:06:21 GMT
+Date: Wed, 15 Apr 2015 16:05:03 GMT
 Access-control-allow-origin: *
 Content-length: 198
 
-{"messages":[{"id":"687390955616", "senderName":"User 2", "messageText":"Fine too, cockatoo!", "sendDate":"13.04.2015, 21:06:21", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN67EN"}
+{"messages":[{"id":"338196775790", "senderName":"User 2", "messageText":"Fine too, cockatoo!", "sendDate":"15.04.2015, 19:05:03", "modifyDate":"not modified", "isDeleted":"false"}],"token":"TN67EN"}
 
 ------------------------------------------------------------------
 
@@ -316,26 +278,7 @@ Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
 
 
 HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:06:22 GMT
-Access-control-allow-origin: *
-Content-length: 32
-
-{"messages":[],"token":"TN67EN"}
-
-------------------------------------------------------------------
-
-GET http://localhost:999/chat?token=TN67EN HTTP/1.1
-Host: localhost:999
-Connection: keep-alive
-User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36
-Origin: null
-Accept: */*
-Accept-Encoding: gzip, deflate, sdch
-Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
-
-
-HTTP/1.1 200 OK
-Date: Mon, 13 Apr 2015 18:06:22 GMT
+Date: Wed, 15 Apr 2015 16:05:04 GMT
 Access-control-allow-origin: *
 Content-length: 32
 

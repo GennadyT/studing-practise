@@ -2,7 +2,7 @@
  * Created by Gennady Trubach on 28.03.2015.
  * FAMCS 2d course 5th group
  */
-public class Message {
+public class Message implements Cloneable {
     private final String ID;
     private String senderName;
     private String messageText;
@@ -17,6 +17,15 @@ public class Message {
         this.sendDate = sendDate;
         this.modifyDate = modifyDate;
         this.isDeleted = isDeleted;
+    }
+
+    public Message(Message message) {
+        this.ID = message.ID;
+        this.senderName = message.senderName;
+        this.messageText = message.messageText;
+        this.sendDate = message.sendDate;
+        this.modifyDate = message.modifyDate;
+        this.isDeleted = message.isDeleted;
     }
 
     public void modify(String newMessageText) {
